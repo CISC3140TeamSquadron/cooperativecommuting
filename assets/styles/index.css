@@ -446,11 +446,13 @@ button.submit_button_up
 	-moz-transition: padding-left .2s linear;
 	-o-transition: padding-left .2s linear;
 	transition: padding-left .2s linear;
+	cursor: pointer;
 }
 
 button.submit_button_up:hover
 {
 	padding-left: 30px;	
+	cursor: pointer;
 }
 
 
@@ -468,11 +470,13 @@ button.submit_button_down
 	-moz-transition: padding-left .2s linear;
 	-o-transition: padding-left .2s linear;
 	transition: padding-left .2s linear;
+	cursor: pointer;
 }
 
 button.submit_button_down:hover
 {
 	padding-left: 30px;	
+	cursor: pointer;
 }
 
 button.cancel_button_up
@@ -489,11 +493,13 @@ button.cancel_button_up
 	-moz-transition: padding-left .2s linear;
 	-o-transition: padding-left .2s linear;
 	transition: padding-left .2s linear;
+	cursor: pointer;
 }
 
 button.cancel_button_up:hover
 {
 	padding-left: 30px;	
+	cursor: pointer;
 }
 
 
@@ -512,11 +518,13 @@ button.cancel_button_down
 	-moz-transition: padding-left .2s linear;
 	-o-transition: padding-left .2s linear;
 	transition: padding-left .2s linear;
+	cursor: pointer;
 }
 
 button.cancel_button_down:hover
 {
 	padding-left: 30px;	
+	cursor: pointer;
 }
 
 .php_response
