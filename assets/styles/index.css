@@ -1,0 +1,527 @@
+/*
+
+index.css - Used to style elements on index.php.
+
+Author: DAVID LETTIER
+   Bio: http://www.lettier.com/
+
+*/
+
+
+body
+{
+	margin: 0px;
+	color: #171717;
+	font-family: 'Oswald', sans-serif;
+	background-color: #eee;
+	overflow-x: hidden;
+	font-size: 100%;
+}
+
+div
+{
+	position: absolute;
+	border: 0px;
+	height: 1px;
+	width: 2px;
+	top: 0px;
+	left: 0px;
+}
+
+img
+{
+	width: 0px;
+	height: 0px;
+	border: 0px;
+}
+
+span
+{
+	padding: 3px;
+}
+
+.signup_cont
+{
+	left: 5px;
+	top: 5px;
+}
+
+.main_nav_cont
+{
+	font-size: 1.8em;
+	color: #000;
+}
+
+.logo_text
+{
+	width: 439px;
+	height: 121px;
+}
+
+.logo_full
+{
+	width: 330px;
+	height: 330px;
+}
+
+#home_link
+{
+	border-bottom: 0px solid #fa3a3a;
+	-webkit-transition: border-bottom .1s linear;
+	-moz-transition: border-bottom .1s linear;
+	-o-transition: border-bottom .1s linear;
+	transition: border-bottom .1s linear;
+	cursor: pointer;
+}
+
+#home_link:hover
+{
+	border-bottom: 3px solid #fa3a3a;
+}
+
+#carpools_link
+{
+	border-bottom: 0px solid #fa3a3a;
+	-webkit-transition: border-bottom .1s linear;
+	-moz-transition: border-bottom .1s linear;
+	-o-transition: border-bottom .1s linear;
+	transition: border-bottom .1s linear;
+	cursor: pointer;
+}
+
+#carpools_link:hover
+{
+	border-bottom: 3px solid #fa3a3a;
+}
+
+#how_link
+{
+	border-bottom: 0px solid #fa3a3a;
+	-webkit-transition: border-bottom .1s linear;
+	-moz-transition: border-bottom .1s linear;
+	-o-transition: border-bottom .1s linear;
+	transition: border-bottom .1s linear;
+	cursor: pointer;
+}
+
+#how_link:hover
+{
+	border-bottom: 3px solid #fa3a3a;
+}
+
+#about_link
+{
+	border-bottom: 0px solid #fa3a3a;
+	-webkit-transition: border-bottom .1s linear;
+	-moz-transition: border-bottom .1s linear;
+	-o-transition: border-bottom .1s linear;
+	transition: border-bottom .1s linear;
+	cursor: pointer;
+}
+
+#about_link:hover
+{
+	border-bottom: 3px solid #fa3a3a;
+}
+
+#contact_link
+{
+	border-bottom: 0px solid #fa3a3a;
+	-webkit-transition: border-bottom .1s linear;
+	-moz-transition: border-bottom .1s linear;
+	-o-transition: border-bottom .1s linear;
+	transition: border-bottom .1s linear;
+	cursor: pointer;
+}
+
+#contact_link:hover
+{
+	border-bottom: 3px solid #fa3a3a;
+}
+
+button.signup_button_up
+{
+	padding: 3px 80px 3px 0px;
+	font-family: 'Oswald', sans-serif;
+	font-size: 1.5em;
+	background-color: #fa3a3a;
+	color: #eee;
+	border: 1px solid #fa3a3a;
+	width: 225px;
+	-webkit-transition: padding-left .2s linear;
+	-moz-transition: padding-left .2s linear;
+	-o-transition: padding-left .2s linear;
+	transition: padding-left .2s linear;
+}
+
+button.signup_button_up:hover
+{
+	padding-left: 30px;	
+}
+
+
+.signup_button_down
+{
+	margin-top: 5px;
+	padding: 3px 80px 3px 0px;
+	font-family: 'Oswald', sans-serif;
+	font-size: 1.5em;
+	background-color: #fa3a3a;
+	color: #eee;
+	border: 1px solid #fa3a3a;
+	width: 225px;
+	-webkit-transition: padding-left .2s linear;
+	-moz-transition: padding-left .2s linear;
+	-o-transition: padding-left .2s linear;
+	transition: padding-left .2s linear;
+}
+
+button.signup_button_down:hover
+{
+	padding-left: 30px;	
+}
+
+button.logout_button_up
+{
+	padding: 3px 80px 3px 0px;
+	font-family: 'Oswald', sans-serif;
+	font-size: 1.5em;
+	background-color: #c64040;
+	color: #eee;
+	border: 1px solid #c64040;
+	width: 225px;
+	-webkit-transition: padding-left .2s linear;
+	-moz-transition: padding-left .2s linear;
+	-o-transition: padding-left .2s linear;
+	transition: padding-left .2s linear;
+}
+
+button.logout_button_up:hover
+{
+	padding-left: 30px;	
+}
+
+
+.logout_button_down
+{
+	margin-top: 5px;
+	padding: 3px 80px 3px 0px;
+	font-family: 'Oswald', sans-serif;
+	font-size: 1.5em;
+	background-color: #c64040;
+	color: #eee;
+	border: 1px solid #c64040;
+	width: 225px;
+	-webkit-transition: padding-left .2s linear;
+	-moz-transition: padding-left .2s linear;
+	-o-transition: padding-left .2s linear;
+	transition: padding-left .2s linear;
+}
+
+button.logout_button_down:hover
+{
+	padding-left: 30px;	
+}
+
+.signup_arrow_icon
+{
+	width: 18px;
+	height: 18px;
+}
+
+.body_cont
+{
+	background-color: #D9D9D9;
+	height: auto;
+}
+
+.search_cont
+{
+	background-color: #4d606e;
+	height: 518px;
+	position: relative;
+	padding-bottom: 40px;
+	line-height: 260%;
+}
+
+.search_text
+{
+	font-size: 2.3em;
+	border: 0px;
+	padding-left: 15px;
+	color: #eee;
+	padding-bottom: 0px;
+	padding-right: 20px;
+	background-color: #688294;
+}
+
+.point_a_text
+{
+	padding-left: 30px;
+	font-size: 1.8em;
+	color: #b1c5d5;
+}
+
+.point_b_text
+{
+	padding-left: 30px;
+	font-size: 1.8em;
+	color: #b1c5d5;
+}
+
+.depart_time_text
+{
+	padding-left: 30px;
+	font-size: 1.8em;
+	color: #b1c5d5;
+}
+
+.arrival_time_text
+{
+	padding-left: 30px;
+	font-size: 1.8em;
+	color: #b1c5d5;
+}
+
+.vehicle_pref_text
+{
+	padding-left: 30px;
+	font-size: 1.8em;
+	color: #b1c5d5;
+}
+
+.point_a_box
+{
+	margin-left: 45px;
+	border: 0px solid #eee;
+	background: #eee;
+}
+
+.point_b_box
+{
+	margin-left: 45px;
+	border: 0px solid #eee;
+	background: #eee;
+}
+
+.arrival_options_box
+{
+	margin-left: 45px;
+	border: 0px solid #eee;
+	background: #eee;
+	padding-left: 90px;
+}
+
+.depart_options_box
+{
+	margin-left: 45px;
+	border: 0px solid #eee;
+	background: #eee;
+	padding-left: 90px;
+}
+
+.vehicle_pref_options_box
+{
+	margin-left: 45px;
+	border: 0px solid #eee;
+	background: #eee;
+	padding-left: 60px;
+}
+
+.map_cont
+{
+}
+
+.account_cont
+{
+	background: #91c65c;
+	height: 518px;
+	/*padding-bottom: 40px;*/
+	line-height: 250%;
+}
+
+.account_text
+{
+	font-size: 2.3em;
+	border: 0px;
+	padding-left: 15px;
+	color: #eee;
+	padding-bottom: 0px;
+	padding-right: 20px;
+	background-color: #6d9546;
+}
+
+.account_blank_img
+{
+	width: 261px;
+	height: 338px;
+}
+
+.login_text
+{
+	padding-left: 30px;
+	font-size: 1.8em;
+	color: #fff;
+	cursor: pointer;
+	-webkit-transition: padding-left .2s linear;
+	-moz-transition: padding-left .2s linear;
+	-o-transition: padding-left .2s linear;
+	transition: padding-left .2s linear;
+}
+
+span.login_text:hover
+{
+	padding-left: 50px;	
+}
+
+.login_arrow_icon
+{
+	width: 26px;
+	height: 26px;
+	cursor: pointer;
+}
+
+.signup_dialog_cont
+{
+	background-color: #f3d859;
+	position: absolute;	
+}
+
+.signup_text
+{
+	font-size: 2.3em;
+	border: 0px;
+	padding-left: 15px;
+	color: #eee;
+	padding-bottom: 5px;
+	padding-right: 20px;
+	background-color: #cbb54a;
+}
+
+.grey_out
+{
+	background-color: #232323;
+	opacity: 0.5;
+	filter:Alpha( opacity=50 ); /* IE8 and earlier */
+}
+
+.user_name_text
+{
+	padding-left: 5px;
+	font-size: 1.0em;
+	color: #232323;
+}
+
+.user_name_box
+{
+	margin-left: 5px;
+	border: 0px solid #eee;
+	background: #eee;
+}
+
+.pass_word_text
+{
+	padding-left: 5px;
+	font-size: 1.0em;
+	color: #232323;
+}
+
+.pass_word_box
+{
+	margin-left: 5px;
+	border: 0px solid #eee;
+	background: #eee;
+}
+
+button.submit_button_up
+{
+	padding: 3px 0px 3px 10px;
+	font-family: 'Oswald', sans-serif;
+	font-size: 1.5em;
+	background-color: #cbb54a;
+	color: #eee;
+	border: 1px solid #cbb54a;
+	width: auto;
+	-webkit-transition: padding-left .2s linear;
+	-moz-transition: padding-left .2s linear;
+	-o-transition: padding-left .2s linear;
+	transition: padding-left .2s linear;
+}
+
+button.submit_button_up:hover
+{
+	padding-left: 30px;	
+}
+
+
+button.submit_button_down
+{
+	margin-top: 5px;
+	padding: 3px 0px 3px 10px;
+	font-family: 'Oswald', sans-serif;
+	font-size: 1.5em;
+	background-color: #cbb54a;
+	color: #eee;
+	border: 1px solid #cbb54a;
+	width: auto;
+	-webkit-transition: padding-left .2s linear;
+	-moz-transition: padding-left .2s linear;
+	-o-transition: padding-left .2s linear;
+	transition: padding-left .2s linear;
+}
+
+button.submit_button_down:hover
+{
+	padding-left: 30px;	
+}
+
+button.cancel_button_up
+{
+	padding: 3px 0px 3px 10px;
+	font-family: 'Oswald', sans-serif;
+	font-size: 1.5em;
+	background-color: #cbb54a;
+	color: #eee;
+	border: 1px solid #cbb54a;
+	width: auto;
+	margin-left: 5px;
+	-webkit-transition: padding-left .2s linear;
+	-moz-transition: padding-left .2s linear;
+	-o-transition: padding-left .2s linear;
+	transition: padding-left .2s linear;
+}
+
+button.cancel_button_up:hover
+{
+	padding-left: 30px;	
+}
+
+
+button.cancel_button_down
+{
+	margin-top: 5px;
+	padding: 3px 0px 3px 10px;
+	font-family: 'Oswald', sans-serif;
+	font-size: 1.5em;
+	background-color: #cbb54a;
+	color: #eee;
+	border: 1px solid #cbb54a;
+	width: auto;
+	margin-left: 5px;
+	-webkit-transition: padding-left .2s linear;
+	-moz-transition: padding-left .2s linear;
+	-o-transition: padding-left .2s linear;
+	transition: padding-left .2s linear;
+}
+
+button.cancel_button_down:hover
+{
+	padding-left: 30px;	
+}
+
+.php_response
+{
+	padding-left: 5px;
+	font-size: 1.5em;
+	color: #232323;
+}
