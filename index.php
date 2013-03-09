@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Cooperative Commuting</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width"><!--For mobile browsers.-->
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
