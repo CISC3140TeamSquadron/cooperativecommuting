@@ -299,8 +299,8 @@ br = create_obj( "", "br", search_cont );
 
 var map_cont = make_div( "map_cont", 3, body_cont );
 size_div( map_cont, "576" /*win_width * .3*/, parseInt( search_cont.clientHeight, 10 ) + 0 );
-place_div( map_cont, parseInt( get_style_attribute( search_cont, "left" ) ) + parseInt( get_style_attribute( search_cont, "width" ) ) + 30, 30 );
-apply_class( map_cont, "geo_map" ); 
+place_div( map_cont, parseInt( get_style_attribute( search_cont, "left" ) ) + parseInt( get_style_attribute( search_cont, "width" ) ) + 30, -528 );
+apply_class( map_cont, "map_cont" ); 
 
 var map, layer;
 
@@ -318,8 +318,7 @@ function init_map()
 	passed in as the last parameter. You could alternatively create a plain function here and have it
 	executed whenever you like (e.g. <body onload="yourfunction">).*/
 
-	MQA.EventUtil.observe( window, 'load', function( ) 
-	{
+	MQA.EventUtil.observe( window, 'load', function( )	{
 
 		/*Create an object for options*/
 		var options = {
@@ -332,14 +331,39 @@ function init_map()
 		/*Construct an instance of MQA.TileMap with the options object*/
 		window.map = new MQA.TileMap( options );
 
-		MQA.withModule('directions', function( ) 
+		MQA.withModule( 'largezoom','viewoptions','geolocationcontrol','insetmapcontrol','mousewheel', 'directions', function( ) 
 		{
 			/*Uses the MQA.TileMap.addRoute function (added to the TileMap with the directions module)
 			passing in an array of location objects as the only parameter.*/
-			map.addRoute([
-				{latLng: {lat:40.735383, lng:-73.984655}},
-				{latLng: {lat:40.765416, lng:-73.985386}}
-			]);
+			
+			map.addControl(
+				new MQA.LargeZoom(),
+				new MQA.MapCornerPlacement(MQA.MapCorner.TOP_LEFT, new MQA.Size(5,5))
+			);
+
+			map.addControl(new MQA.ViewOptions());
+
+			map.addControl(
+				new MQA.GeolocationControl(),
+				new MQA.MapCornerPlacement(MQA.MapCorner.TOP_RIGHT, new MQA.Size(10,50))
+			);
+
+			/*Inset Map Control options*/ 
+			var options={
+				size:{width:150, height:125},
+				zoom:3,
+				mapType:'osmsat',
+				minimized:false 
+			};
+
+			map.addControl(
+				new MQA.InsetMapControl(options),
+				new MQA.MapCornerPlacement(MQA.MapCorner.BOTTOM_RIGHT)
+			);
+
+			map.enableMouseWheelZoom();			
+			
+			map.addRoute( [ {latLng: {lat:40.735383, lng:-73.984655}}, {latLng: {lat:40.765416, lng:-73.985386}} ] );
 		});
 	});
 }
