@@ -306,18 +306,49 @@ var map, layer;
 
 function init_map()
 {
-
+	// Commenting out old map code. Still using OSM but with MapQuest routing data API.
+	/*
 	map = new OpenLayers.Map( 'map_cont' );
 	layer = new OpenLayers.Layer.OSM( "Simple OSM Map" );
 	map.addLayer( layer );
-	map.setCenter( new OpenLayers.LonLat( -73.937988, 40.646522 ).transform( new OpenLayers.Projection( "EPSG:4326" ), map.getProjectionObject( ) ), 11 );    
+	map.setCenter( new OpenLayers.LonLat( -73.937988, 40.646522 ).transform( new OpenLayers.Projection( "EPSG:4326" ), map.getProjectionObject( ) ), 11 );
+	*/
+	
+	/*An example of using the MQA.EventUtil to hook into the window load event and execute defined function
+	passed in as the last parameter. You could alternatively create a plain function here and have it
+	executed whenever you like (e.g. <body onload="yourfunction">).*/
+
+	MQA.EventUtil.observe( window, 'load', function( ) 
+	{
+
+		/*Create an object for options*/
+		var options = {
+			elt: document.getElementById( 'map_cont' ),    /*ID of element on the page where you want the map added*/
+			zoom: 13,                                      /*initial zoom level of map*/
+			latLng: {lat:40.735383, lng:-73.984655 },      /*center of map in latitude/longitude*/
+			mtype: 'osm'                                   /*map type (osm)*/
+		};
+
+		/*Construct an instance of MQA.TileMap with the options object*/
+		window.map = new MQA.TileMap( options );
+
+		MQA.withModule('directions', function( ) 
+		{
+			/*Uses the MQA.TileMap.addRoute function (added to the TileMap with the directions module)
+			passing in an array of location objects as the only parameter.*/
+			map.addRoute([
+				{latLng: {lat:40.735383, lng:-73.984655}},
+				{latLng: {lat:40.765416, lng:-73.985386}}
+			]);
+		});
+	});
 }
 
 init_map();
 
-var osm_attribute = get_obj( "OpenLayers.Control.Attribution_7" ); // Hide the water mark.
+// var osm_attribute = get_obj( "OpenLayers.Control.Attribution_7" ); // Hide the water mark.
 
-osm_attribute.style.visibility = "hidden"; // Hide the water mark.
+// osm_attribute.style.visibility = "hidden"; // Hide the water mark.
 
 // ACCOUNT SECTION
 

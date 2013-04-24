@@ -15,7 +15,7 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'><!--Custom Google Font-->
-        <link rel="stylesheet" href="assets/styles/index.css"> <!--The style sheet-->
+        <link rel="stylesheet" href="assets/styles/index.css"> <!--The style sheet-->        
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -25,6 +25,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
         <script src="http://openlayers.org/api/OpenLayers.js"></script>
+        <script src="http://open.mapquestapi.com/sdk/js/v7.0.s/mqa.toolkit.js?key=Fmjtd%7Cluub2q0rnl%2C25%3Do5-9u75qz"></script>
         <script src="assets/scripts/index.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
