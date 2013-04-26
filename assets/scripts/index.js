@@ -229,7 +229,7 @@ search_cont.innerHTML = "<span class='search_text'>Search</span>";
 // SEARCH CRITERIA SECTION
 
 var br = create_obj( "", "br", search_cont );
-br = create_obj( "", "br", search_cont );
+//br = create_obj( "", "br", search_cont );
 
 var point_a_text = create_obj( "point_a_text", "span", search_cont );
 apply_class( point_a_text, "point_a_text" );
@@ -295,6 +295,20 @@ apply_class( vehicle_pref_options_box, "vehicle_pref_options_box" );
 
 br = create_obj( "", "br", search_cont );
 
+var search_button = make_button( "search_button", "assets/images/arrow_icon.png", "signup_arrow_icon", "SEARCH", search_cont );
+apply_class( search_button, "search_button_up" );
+mouse_down_swap_classname( search_button, "search_button_up", "search_button_down" );
+
+search_button.onmouseup = function ( ) {
+	
+	console.log( point_a_box.value + " " + point_b_box.value );
+	
+	update_map( point_a_box.value, point_b_box.value );
+	
+};
+
+br = create_obj( "", "br", search_cont );
+
 // MAP SECTION
 
 var map_cont = make_div( "map_cont", 3, body_cont );
@@ -304,38 +318,27 @@ apply_class( map_cont, "map_cont" );
 
 var map, layer;
 
-function init_map()
+function init_map( )
 {
-	// Commenting out old map code. Still using OSM but with MapQuest routing data API.
-	/*
-	map = new OpenLayers.Map( 'map_cont' );
-	layer = new OpenLayers.Layer.OSM( "Simple OSM Map" );
-	map.addLayer( layer );
-	map.setCenter( new OpenLayers.LonLat( -73.937988, 40.646522 ).transform( new OpenLayers.Projection( "EPSG:4326" ), map.getProjectionObject( ) ), 11 );
-	*/
-	
-	/*An example of using the MQA.EventUtil to hook into the window load event and execute defined function
-	passed in as the last parameter. You could alternatively create a plain function here and have it
-	executed whenever you like (e.g. <body onload="yourfunction">).*/
+	MQA.EventUtil.observe(window, 'load', function() 
+	{
 
-	MQA.EventUtil.observe( window, 'load', function( )	{
-
-		/*Create an object for options*/
-		var options = {
-			elt: document.getElementById( 'map_cont' ),    /*ID of element on the page where you want the map added*/
-			zoom: 13,                                      /*initial zoom level of map*/
-			latLng: {lat:40.735383, lng:-73.984655 },      /*center of map in latitude/longitude*/
-			mtype: 'osm'                                   /*map type (osm)*/
+		/*Create an object for options*/ 
+		var options={
+			elt:document.getElementById('map_cont'),       /*ID of element on the page where you want the map added*/ 
+			zoom:13,                                  /*initial zoom level of the map*/ 
+			latLng:{lat:40.735383, lng:-73.984655},   /*center of map in latitude/longitude */ 
+			mtype:'osm',                              /*map type (osm)*/ 
+			bestFitMargin:0,                          /*margin offset from the map viewport when applying a bestfit on shapes*/ 
+			zoomOnDoubleClick:true                    /*zoom in when double-clicking on map*/ 
 		};
 
-		/*Construct an instance of MQA.TileMap with the options object*/
-		window.map = new MQA.TileMap( options );
+		/*Construct an instance of MQA.TileMap with the options object*/ 
+		window.map = new MQA.TileMap(options);
 
-		MQA.withModule( 'largezoom','viewoptions','geolocationcontrol','insetmapcontrol','mousewheel', 'directions', function( ) 
+		MQA.withModule('largezoom','viewoptions','geolocationcontrol','insetmapcontrol','mousewheel', function() 
 		{
-			/*Uses the MQA.TileMap.addRoute function (added to the TileMap with the directions module)
-			passing in an array of location objects as the only parameter.*/
-			
+
 			map.addControl(
 				new MQA.LargeZoom(),
 				new MQA.MapCornerPlacement(MQA.MapCorner.TOP_LEFT, new MQA.Size(5,5))
@@ -350,10 +353,10 @@ function init_map()
 
 			/*Inset Map Control options*/ 
 			var options={
-				size:{width:150, height:125},
-				zoom:3,
-				mapType:'osmsat',
-				minimized:false 
+			size:{width:150, height:125},
+			zoom:3,
+			mapType:'osmsat',
+			minimized:false 
 			};
 
 			map.addControl(
@@ -361,14 +364,99 @@ function init_map()
 				new MQA.MapCornerPlacement(MQA.MapCorner.BOTTOM_RIGHT)
 			);
 
-			map.enableMouseWheelZoom();			
-			
-			map.addRoute( [ {latLng: {lat:40.735383, lng:-73.984655}}, {latLng: {lat:40.765416, lng:-73.985386}} ] );
+			map.enableMouseWheelZoom();
 		});
 	});
 }
 
-init_map();
+function update_map( loc_a, loc_b )
+{
+	
+	map_cont = get_obj( "map_cont" );
+	
+	map_cont.innerHTML = "";
+	
+	map_handle = null;
+		
+	/*Arrays to hold lat/lng data for use with the Directions module*/		
+		
+	var latitude = new Array;
+	
+	var longitude = new Array;
+
+	/*Addresses that need to be geocoded*/
+	
+	var locations = new Array( loc_a, loc_b );
+
+	/*Using the Nominatim API Service to geocode the addresses in the locations array*/
+	
+	for ( i = 0 ; i < locations.length ; i++ ) 
+	{
+		$.ajax({
+			url: 'http://open.mapquestapi.com/nominatim/v1/search',
+			dataType: 'json',
+			async: false,
+			crossDomain: true,
+			data: {
+				q: locations[i],
+				format: 'json'
+			},
+
+			success: function( data, textStatus, jqXHR ) 
+			{
+				/*Storing the lat/lngs in an array for later use*/
+				
+					latitude.push( data[0].lat );
+				longitude.push( data[0].lon );
+
+				/*Get map and create the route when done*/
+				
+				if( i==locations.length-1 ) 
+				{
+					getMap( );
+				}
+			}
+		});
+	}
+
+	function getMap() 
+	{
+		/*Create an object for options*/
+		
+		var options = {
+			elt:document.getElementById( 'map_cont' ),        /*ID of element on the page where you want the map added*/
+			zoom:18,                                   /*initial zoom level of map*/
+			//latLng:{lat:40.735383, lng:-73.984655},    /*center of map in latitude/longitude*/
+			mtype:'osm'                                /*map type (osm)*/
+		};
+
+		/*Construct an instance of MQA.TileMap with the options object*/
+		
+		window.map = new MQA.TileMap(options);			
+		
+
+		/*This uses the MQA.withModule support to download and initialize the routing support modules. When the
+		modules are ready for use, the function provided as the last parameter will be executed.*/
+		
+		MQA.withModule( 'largezoom', 'directions', function() 
+		{
+			
+			map.addControl(
+				new MQA.LargeZoom(),
+				new MQA.MapCornerPlacement( MQA.MapCorner.TOP_LEFT, new MQA.Size(5,5) )
+			);
+			
+			/*Uses the MQA.TileMap.addRoute function (added to the TileMap with the directions module)
+			passing in an array of location objects as the only parameter.*/
+			map.addRoute([
+				{latLng: {lat:latitude[0], lng:longitude[0]}},
+				{latLng: {lat:latitude[1], lng:longitude[1]}}
+			]);				
+		});		
+	}
+}
+
+init_map( );
 
 // var osm_attribute = get_obj( "OpenLayers.Control.Attribution_7" ); // Hide the water mark.
 
@@ -930,7 +1018,6 @@ function cancel_login_form( )
 // END LOGIN 
 
 // BEGIN RESPONSIVE SIZING
-
 
 window.setInterval( resize, 1000 );
 

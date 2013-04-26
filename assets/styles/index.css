@@ -539,6 +539,54 @@ button.cancel_button_down:hover
 	cursor: pointer;
 }
 
+button.search_button_up
+{
+	padding: 3px 0px 3px 10px;
+	font-family: 'Oswald', sans-serif;
+	font-size: 1.5em;
+	background-color: #4d606e;
+	color: #eee;
+	border: 1px solid #4d606e;
+	width: auto;
+	margin-left: 5px;
+	-webkit-transition: padding-left .2s linear;
+	-moz-transition: padding-left .2s linear;
+	-o-transition: padding-left .2s linear;
+	transition: padding-left .2s linear;
+	cursor: pointer;
+}
+
+button.search_button_up:hover
+{
+	padding-left: 30px;	
+	cursor: pointer;
+}
+
+
+button.search_button_down
+{
+	margin-top: 5px;
+	padding: 3px 0px 3px 10px;
+	font-family: 'Oswald', sans-serif;
+	font-size: 1.5em;
+	background-color: #4d606e;
+	color: #eee;
+	border: 1px solid #4d606e;
+	width: auto;
+	margin-left: 5px;
+	-webkit-transition: padding-left .2s linear;
+	-moz-transition: padding-left .2s linear;
+	-o-transition: padding-left .2s linear;
+	transition: padding-left .2s linear;
+	cursor: pointer;
+}
+
+button.search_button_down:hover
+{
+	padding-left: 30px;	
+	cursor: pointer;
+}
+
 .php_response
 {
 	padding-left: 5px;
