@@ -23,7 +23,7 @@
 	
 		//Connecting to the selected database portion.
 		$local_Host = 'localhost';
-		$username = 'pcheung';
+		$username = '';
 		$DB_Username = '';
 		$password = '';
 	
