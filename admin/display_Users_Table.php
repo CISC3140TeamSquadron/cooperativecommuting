@@ -14,7 +14,7 @@
 
 	<?php
 		$local_Host = 'localhost';
-		$username = 'pcheung';
+		$username = '';
 		$DB_Username = '';
 		$password = '';
 	
