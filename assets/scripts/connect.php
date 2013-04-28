@@ -36,6 +36,8 @@
 
 		function select_record( $query )
 		{
+			$query = mysql_real_escape_string( $query );
+			
 			$q = mysql_query( $query );
 			
 			if ( !$q ) 
@@ -58,7 +60,7 @@
 		
 		function update_record( $query )
 		{
-			mysql_real_escape_string( $query );
+			$query = mysql_real_escape_string( $query );
 			
 			$db_query = mysql_query( $query ) or die( mysql_error( ) );
 			 
@@ -75,9 +77,10 @@
 		
 		function insert_record( $query )
 		{
-			mysql_real_escape_string( $query );
+			$query = mysql_real_escape_string( $query );
 			
 			$db_query = mysql_query( $query ) or die( mysql_error( ) ); 
+			
 			if ( $db_query )
 			{
 				return true;
