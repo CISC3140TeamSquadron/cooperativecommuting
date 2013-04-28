@@ -3,9 +3,9 @@
 	//table based on the post input from 'edit_User_Form'.
 	
 	$local_Host = 'localhost';
-	$username = 'pcheung';
-	$database = 'pcheung';
-	$password = 'cwNwv5';
+	$username = '';
+	$database = '';
+	$password = '';
 	$conn = mysql_connect($local_Host, $username, $password, $database) 
 	or die('Could not connect:'.mysql_error());	
 	$db_found = mysql_select_db($database);
