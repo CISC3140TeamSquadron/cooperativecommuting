@@ -15,8 +15,8 @@
 	<?php
 		$local_Host = 'localhost';
 		$username = 'pcheung';
-		$DB_Username = 'pcheung';
-		$password = 'cwNwv5';
+		$DB_Username = '';
+		$password = '';
 	
 		$conn = mysql_connect($local_Host, $username, $password) 
 		or die('Could not connect:'.mysql_error());	
