@@ -19,9 +19,9 @@
 		
 		//Connection to MySQL DB Portion.
 		$local_Host = 'localhost';
-		$username = 'pcheung';
-		$DB_Username = 'pcheung';
-		$password = 'cwNwv5';
+		$username = '';
+		$DB_Username = '';
+		$password = '';
 	
 		$conn = mysql_connect($local_Host, $DB_Username, $password) 
 		or die('Could not connect:'.mysql_error());	
