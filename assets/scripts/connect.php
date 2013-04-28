@@ -36,11 +36,9 @@
 
 		function select_record( $query )
 		{
-			$query = mysql_real_escape_string( $query );
+			$db_query = mysql_query( $query );
 			
-			$q = mysql_query( $query );
-			
-			if ( !$q ) 
+			if ( !$db_query ) 
 			{ 
 				echo mysql_error( );
 				return false; 
@@ -48,20 +46,18 @@
 			
 			$ret = array();
 			
-			while ( $row = mysql_fetch_array( $q, MYSQL_ASSOC ) ) 
+			while ( $row = mysql_fetch_array( $db_query, MYSQL_ASSOC ) ) 
 			{
 				array_push( $ret, $row );
 			}
 			
-			mysql_free_result( $q );
+			mysql_free_result( $db_query );
 			
 			return $ret;
 		}
 		
 		function update_record( $query )
 		{
-			$query = mysql_real_escape_string( $query );
-			
 			$db_query = mysql_query( $query ) or die( mysql_error( ) );
 			 
 			if ( $db_query )
@@ -77,8 +73,6 @@
 		
 		function insert_record( $query )
 		{
-			$query = mysql_real_escape_string( $query );
-			
 			$db_query = mysql_query( $query ) or die( mysql_error( ) ); 
 			
 			if ( $db_query )
