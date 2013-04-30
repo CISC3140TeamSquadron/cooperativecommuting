@@ -200,7 +200,9 @@ carpools_link.onmouseup = function( ) { window.location.href = "carpools.php"; }
 var how_link = get_obj( "how_link" );
 how_link.onmouseup = function( ) { window.location.href = "how.php"; }
 var about_link = get_obj( "about_link" );
-about_link.onmouseup = function( ) { window.location.href = "about.php"; }
+about_link.onmouseup = function( ) { window.location.href = "about.php"; } 
+var contact_link = get_obj( "contact_link" );
+contact_link.onmouseup = function( ) { window.location.href = "contact.php"; }
 
 /*
 
@@ -231,7 +233,7 @@ var carpool_search = make_div( "carpool_cont", 1, body_cont );
 size_div( carpool_search, "1500", win_height ); 
 place_div( carpool_search, 20, 30 ); 
 apply_class( carpool_search, "search_cont" ); 
-carpool_search.innerHTML = " "; 
+carpool_search.innerHTML = ""; 
 
 	
 	// AJAX CALL
@@ -369,7 +371,7 @@ br = create_obj( "", "br", search_cont );
 
 // BEGIN SIGNUP
 
-signup_button.onclick = function(){ signup_dialog_box_init( ); };
+//signup_button.onclick = function(){ signup_dialog_box_init( ); };
 
 function signup_dialog_box_init( )
 {

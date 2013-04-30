@@ -199,6 +199,12 @@ main_nav_cont.innerHTML = "<span id='home_link'>Home</span> &nbsp;&nbsp;&nbsp;&n
 size_div( main_nav_cont, "672" /*win_width * .35*/, parseInt( logo.clientHeight, 10 ) );
 place_div( main_nav_cont, parseInt( logo.clientWidth, 10 ) + 20, parseInt( logo.clientHeight, 10 ) - 90 );
 
+//var home_link = get_obj( "home_link" );
+//home_link.onmouseup = function( ) { window.location.href = "index.php"; }
+
+//var contact_link = get_obj( "contact_link" );
+//contact_link.onmouseup = function( ) { window.location.href = "contact.php"; }
+
 var home_link = get_obj( "home_link" );
 home_link.onmouseup = function( ) { window.location.href = "index.php"; }
 var carpools_link = get_obj( "carpools_link" );

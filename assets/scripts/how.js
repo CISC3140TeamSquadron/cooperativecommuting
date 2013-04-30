@@ -201,16 +201,9 @@ var how_link = get_obj( "how_link" );
 how_link.onmouseup = function( ) { window.location.href = "how.php"; }
 var about_link = get_obj( "about_link" );
 about_link.onmouseup = function( ) { window.location.href = "about.php"; }
+var contact_link = get_obj( "contact_link" );
+contact_link.onmouseup = function( ) { window.location.href = "contact.php"; }
 
-/*
-
-mouse_bottom_border( home_link );
-mouse_bottom_border( carpools_link );
-mouse_bottom_border( how_link );
-mouse_bottom_border( about_link );
-mouse_bottom_border( contact_link );
-
-*/
 
 var signup_button = make_button( "signup_button", "assets/images/arrow_icon.png", "signup_arrow_icon", "SIGNUP", signup_cont );
 apply_class( signup_button, "signup_button_up" );
@@ -232,145 +225,63 @@ size_div( how_text, "1500", "200" );
 place_div( how_text, 20, 30 ); 
 apply_class( how_text, "search_cont" ); 
 how_text.innerHTML = "<h1><b><u>How It Works:</u></b></h1>&nbsp;&nbsp;&nbsp;&nbsp;Through this site, members and visitors will be able to find everything they need to know in regards to our car pooling. It has a fresh design which contains clear links with descriptive text in the body.  This allows great navigation for users, communication to the users, and the online presence of the Cooperative Commuting (CC). We are committed to making sure the web content will work in any browser and can be seen at any Internet speed. ";
-
-
 	
-	// AJAX CALL
+// AJAX CALL
 
-	function get_XmlHttp() 
-	{
-		// create the variable that will contain the instance of the XMLHttpRequest object (initially with null value)
-		var xmlHttp = null;
-
-		if( window.XMLHttpRequest ) 
-		{		// for Firefox, IE7+, Opera, Safari, ...
-			xmlHttp = new XMLHttpRequest();
-		}
-		else if ( window.ActiveXObject ) 
-		{	// for Internet Explorer 5 or 6
-			xmlHttp = new ActiveXObject( "Microsoft.XMLHTTP" );
-		}
-
-		return xmlHttp;
-	}
-
-	// sends data to a php file, via POST, and displays the received answer
-	function ajaxrequest( php_file, tagID ) 
-	{
-		var request =  get_XmlHttp( ); // call the function for the XMLHttpRequest instance
-
-		// create pairs index=value with data that must be sent to server
-
-		request.open( "POST", php_file, true ); // set the request
-
-		// adds  a header to tell the PHP script to recognize the data as is sent via POST
-		request.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
-		request.send( "" );// calls the send() method with datas as parameter
-
-		// Check request status
-		// If the response is received completely, will be transferred to the HTML tag with tagID
-		request.onreadystatechange = function( ) 
-		{
-			if ( request.readyState == 4 )
-			{
-				console.log("astring"); 
-				console.log(request.responseText); 
-				document.getElementById( tagID ).style.visibility = "visible";
- 	 			document.getElementById( tagID ).innerHTML = request.responseText;
-			}
-		}
-	}
-	
-	
-	
-	var php_response = create_obj( "php_response", "span", carpool_search );
-	apply_class( php_response, "php_response" );
-	php_response.style.visibility = "visible";
-	php_response.innerHTML = "&nbsp;";
-	
-	//ajaxrequest( 'assets/scripts/carpools_table.php', 'php_response' );	
-//var search_cont = make_div( "search_cont", 1 , body_cont );
-//size_div( search_cont, "326" /*win_width * .17*/ , "518" );
-//place_div( search_cont, 20, 30 );
-//apply_class( search_cont, "search_cont" );
-//search_cont.innerHTML = "<span class='search_text'>Search</span>";
-
-/*
-// SEARCH CRITERIA SECTION
-
-var br = create_obj( "", "br", search_cont );
-br = create_obj( "", "br", search_cont );
-
-var point_a_text = create_obj( "point_a_text", "span", search_cont );
-apply_class( point_a_text, "point_a_text" );
-point_a_text.innerHTML = "Point A:";
-
-br = create_obj( "", "br", search_cont );
-
-var point_a_box = create_input_box( "point_a_box", "text", "point_a", search_cont );
-apply_class( point_a_box, "point_a_box" );
-
-br = create_obj( "", "br", search_cont );
-
-var point_b_text = create_obj( "point_b_text", "span", search_cont );
-apply_class( point_b_text, "point_b_text" );
-point_b_text.innerHTML = "Point B:";
-
-br = create_obj( "", "br", search_cont );
-
-var point_b_box = create_input_box( "point_b_box", "text", "point_b", search_cont );
-apply_class( point_b_box, "point_b_box" );
-
-br = create_obj( "", "br", search_cont );
-
-var depart_time_text = create_obj( "depart_time_text", "span", search_cont );
-apply_class( depart_time_text, "depart_time_text" );
-depart_time_text.innerHTML = "Departure Time:";
-
-br = create_obj( "", "br", search_cont );
-
-var options = new Array();
-
-for( var i = 0; i < 24 ; i++ )
+function get_XmlHttp() 
 {
-	options[i] = i + ":00";
+	// create the variable that will contain the instance of the XMLHttpRequest object (initially with null value)
+	var xmlHttp = null;
+
+	if( window.XMLHttpRequest ) 
+	{		// for Firefox, IE7+, Opera, Safari, ...
+		xmlHttp = new XMLHttpRequest();
+	}
+	else if ( window.ActiveXObject ) 
+	{	// for Internet Explorer 5 or 6
+		xmlHttp = new ActiveXObject( "Microsoft.XMLHTTP" );
+	}
+
+	return xmlHttp;
 }
 
-var depart_options_box = create_option_box( "depart_options_box", "depart_options", options, search_cont );
-apply_class( depart_options_box, "depart_options_box" );
+// sends data to a php file, via POST, and displays the received answer
+function ajaxrequest( php_file, tagID ) 
+{
+	var request =  get_XmlHttp( ); // call the function for the XMLHttpRequest instance
 
-br = create_obj( "", "br", search_cont );
+	// create pairs index=value with data that must be sent to server
 
-var arrival_time_text = create_obj( "arrival_time_text", "span", search_cont );
-apply_class( arrival_time_text, "arrival_time_text" );
-arrival_time_text.innerHTML = "Arrival Time:";
+	request.open( "POST", php_file, true ); // set the request
 
-br = create_obj( "", "br", search_cont );
+	// adds  a header to tell the PHP script to recognize the data as is sent via POST
+	request.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+	request.send( "" );// calls the send() method with datas as parameter
 
-var arrival_options_box = create_option_box( "arrival_options_box", "arrival_options", options, search_cont );
-apply_class( arrival_options_box, "arrival_options_box" );
-
-br = create_obj( "", "br", search_cont );
-
-var vehicle_pref_text = create_obj( "vehicle_pref_text", "span", search_cont );
-apply_class( vehicle_pref_text, "vehicle_pref_text" );
-vehicle_pref_text.innerHTML = "Vehicle Preference:";
-
-br = create_obj( "", "br", search_cont );
-
-options = [ "Two Door", "Four Door", "Mini-Van", "Cargo Van", "Truck", "Motorcycle" ];
-
-var vehicle_pref_options_box = create_option_box( "vehicle_pref_options_box", "depart_options", options, search_cont );
-apply_class( vehicle_pref_options_box, "vehicle_pref_options_box" );
-
-br = create_obj( "", "br", search_cont );
-*/
+	// Check request status
+	// If the response is received completely, will be transferred to the HTML tag with tagID
+	request.onreadystatechange = function( ) 
+	{
+		if ( request.readyState == 4 )
+		{
+			console.log("astring"); 
+			console.log(request.responseText); 
+			document.getElementById( tagID ).style.visibility = "visible";
+ 			document.getElementById( tagID ).innerHTML = request.responseText;
+		}
+	}
+}
 
 
+
+var php_response = create_obj( "php_response", "span", carpool_search );
+apply_class( php_response, "php_response" );
+php_response.style.visibility = "visible";
+php_response.innerHTML = "&nbsp;";
 
 // BEGIN SIGNUP
 
-signup_button.onclick = function(){ signup_dialog_box_init( ); };
+//signup_button.onclick = function(){ signup_dialog_box_init( ); };
 
 function signup_dialog_box_init( )
 {
@@ -903,7 +814,6 @@ function cancel_login_form( )
 
 // BEGIN RESPONSIVE SIZING
 
-
 window.setInterval( resize, 1000 );
 
 function resize( )
@@ -913,12 +823,3 @@ function resize( )
 	
 	size_div( body_cont, win_width, win_height - parseInt( get_style_attribute( body_cont, "top" ) ) );	
 }
-
-
-
-
-
-
-
-
-
