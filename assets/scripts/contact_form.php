@@ -4,7 +4,7 @@
 
 	contact_form.php - sends email to site admins
 
-	Author: Drraisy Sabel
+	Author: Draisy Sabel
 	
 	*/
 
@@ -37,9 +37,9 @@
 		$message = wordwrap($message, 70, "\r\n");		
 	}
 	
-	$to = 'cisc3140-team-squadron@googlegroups.';
+	$to = 'cisc3140-team-squadron@googlegroups.com';
 	$subject = 'Contact Us Form';
-	$headers = 'From:'. email_add . "\r\n" . 'Reply-To:' .email_add . "\r\n" . 'X-Mailer: PHP/' . phpversion();
+	$headers = 'From:'. email_add . fname . lname . "\r\n" . 'Reply-To:' .email_add . "\r\n" . 'X-Mailer: PHP/' . phpversion();
 	
 	$mail = mail($to, $subject, $message, $headers);
 	

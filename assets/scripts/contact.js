@@ -2,8 +2,8 @@
 
 contact.js - Used to create the dynamic elements for contact.php.
 
-Author: DAVID LETTIER
-		Draisy Sabel
+Authors: DAVID LETTIER
+		 DRAISY SABEL 
    Bio: http://www.lettier.com/
 
 */
@@ -201,7 +201,12 @@ place_div( main_nav_cont, parseInt( logo.clientWidth, 10 ) + 20, parseInt( logo.
 
 var home_link = get_obj( "home_link" );
 home_link.onmouseup = function( ) { window.location.href = "index.php"; }
-
+var carpools_link = get_obj( "carpools_link" );
+carpools_link.onmouseup = function( ) { window.location.href = "carpools.php"; }
+var how_link = get_obj( "how_link" );
+how_link.onmouseup = function( ) { window.location.href = "how.php"; }
+var about_link = get_obj( "about_link" );
+about_link.onmouseup = function( ) { window.location.href = "about.php"; }
 var contact_link = get_obj( "contact_link" );
 contact_link.onmouseup = function( ) { window.location.href = "contact.php"; }
 
@@ -303,14 +308,13 @@ contact_cont.innerHTML = "<span class='signup_text'>Contact Us</span>";
 
 
 	function submit_form_data( )
-{
-
+{	
 	var email_add_box         = get_obj( "email_add_box" );
 	var fname_box       	  = get_obj( "fname_box" );
 	var lname_box 			  = get_obj( "lname_box" );
 	var message_box           = get_obj( "message_box" );
 	
-	var data_fields = [ fname_name_box.value, lname_box.value, email_add_box.value, message_box.value];
+	var data_fields = [ fname_box.value, lname_box.value, email_add_box.value, message_box.value];
 
 	if ( email_add_box.value == "" || fname_box.value == "" || lname_box.value == "" || message_box.value == "" )
 	{
@@ -356,7 +360,7 @@ contact_cont.innerHTML = "<span class='signup_text'>Contact Us</span>";
 		// create pairs index=value with data that must be sent to server
 		var data_string = 'fname=' + fname_box.value;
 		data_string  += '&lname=' + lname_box.value;
-		data_string  += '&email_add' + email_box.value;
+		data_string  += '&email_add' + email_add_box.value;
 		data_string  += '&message=' + message_box.value;
 			
 
@@ -374,15 +378,15 @@ contact_cont.innerHTML = "<span class='signup_text'>Contact Us</span>";
 			if ( request.readyState == 4 )
 			{
 			
-				signup_dialog_cont.style.height = "auto";
+				contact_cont.style.height = "auto";
 				
 				document.getElementById( tagID ).style.visibility = "visible";
 				document.getElementById( tagID ).innerHTML = request.responseText;
 
 				
-				if ( php_response.innerHTML == "Message Sent!" ) // Message sent successfully. Clear fields.
+				if ( php_response_sent.innerHTML == "Message Sent!" ) // Message sent successfully. Clear fields.
 				
-					window.setTimeout( function(){ cancel_contact_form(); }, 2000 ); // Clear out the signup dialog.
+					window.setTimeout( function(){ cancel_contact_form(); }, 2000 ); // Clear out the contact form.
 				}
 				else
 				{
@@ -392,28 +396,31 @@ contact_cont.innerHTML = "<span class='signup_text'>Contact Us</span>";
 	
 }		
 	
-	var php_response = create_obj( "php_response", "span", contact_cont );
-	apply_class( php_response, "php_response" );
-	php_response.style.visibility = "hidden";
-	php_response.innerHTML = "&nbsp;";
+	var php_response_sent = create_obj( "php_response_sent", "span", contact_cont );
+	apply_class( php_response_sent, "php_response" );
+	php_response_sent.style.visibility = "hidden";
+	php_response_sent.innerHTML = "&nbsp;";
 	
-	ajaxrequest( 'assets/scripts/contact_form.php', 'php_response' );
+	ajaxrequest( 'assets/scripts/contact_form.php', 'php_response_sent' );
 }
 
-function cancel_contact_form( )
+function cancel_contact_form( )  //clearing contact form and confirmation message
 {
 	var contact_cont = get_obj( "contact_cont" );
+	var email_add_box         = get_obj( "email_add_box" );
+	var fname_box       	  = get_obj( "fname_box" );
+	var lname_box 			  = get_obj( "lname_box" );
+	var message_box           = get_obj( "message_box" );
 	
-	while ( contact_cont.firstChild ) 
-	{
-		contact_cont.removeChild( signup_dialog_cont.firstChild );
-	}
+	email_add_box.value = "";
+	fname_box.value = ""; 
+	lname_box.value = "";
+	message_box.value = "";
 	
-	document.body.removeChild( contact_cont );
+	var php_response_sent = get_obj( "php_response_sent" );
+	php_response_sent.style.visibility = "hidden";
+
 	
-	var grey_out = get_obj( "grey_out" );
-	
-	document.body.removeChild( grey_out );
 }
 
 	//END CONTACT CONTAINER
