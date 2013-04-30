@@ -189,7 +189,6 @@ var logo = make_img( "logo_full", "assets/images/car_logo.png", logo_cont );
 
 apply_class( logo, "logo_full" );
 
-
 main_nav_cont.innerHTML = "<span id='home_link'>Home</span> &nbsp;&nbsp;&nbsp;&nbsp; <span id='carpools_link'>Carpools</span> &nbsp;&nbsp;&nbsp;&nbsp; <span id='how_link'>How It Works</span> &nbsp;&nbsp;&nbsp;&nbsp; <span id='about_link'>About</span> &nbsp;&nbsp;&nbsp;&nbsp; <span id='contact_link'>Contact</span>";
 size_div( main_nav_cont, "672" /*win_width * .35*/, parseInt( logo.clientHeight, 10 ) );
 place_div( main_nav_cont, parseInt( logo.clientWidth, 10 ) + 20, parseInt( logo.clientHeight, 10 ) - 90 );
@@ -202,9 +201,6 @@ var how_link = get_obj( "how_link" );
 how_link.onmouseup = function( ) { window.location.href = "how.php"; }
 var about_link = get_obj( "about_link" );
 about_link.onmouseup = function( ) { window.location.href = "about.php"; }
-
-var contact_link = get_obj( "contact_link" );
-contact_link.onmouseup = function( ) { window.location.href = "contact.php"; }
 
 /*
 
@@ -231,16 +227,78 @@ size_div( body_cont, win_width, win_height - parseInt( get_style_attribute( body
 place_div( body_cont, 0, parseInt( logo.clientHeight, 10 ) - 20 );
 apply_class( body_cont, "body_cont" );
 
-var search_cont = make_div( "search_cont", 1 , body_cont );
-size_div( search_cont, "326" /*win_width * .17*/ , "518" );
-place_div( search_cont, 20, 30 );
-apply_class( search_cont, "search_cont" );
-search_cont.innerHTML = "<span class='search_text'>Search</span>";
+var about_text = make_div( "about_cont", 1, body_cont ); 
+size_div( about_text, "1500", "400" ); 
+place_div( about_text, 20, 30 ); 
+apply_class( about_text, "search_cont" ); 
+about_text.innerHTML = "<h1><b><u>About Cooperative Commuting (CC):</u></b></h1><p>Welcome to Cooperative Commuting (CC). We are an informal car pooling company that was created in 2013 when 6 class mates (Peter Cheung, Draisy Sabel, David Lettier, Seyfaddin Pashayev, Konstantin Filenko and Dionne Alexander-Davis) at Brooklyn College decided to help our planet by decreasing our carbon footprint, one foot at a time. We decided that this was a great way to encourage a greener planet and one in which we could all play a role in.<br>Car pooling seems like a simple enough idea which is convenient because no pre-arrangement or fixed schedule is necessary. There are usually sufficient numbers of drivers and riders so that you can get a car pool within a matter of minutes. <br>Today, thanks to cool technology, a member-driven user experience, and an amazing team of hands-on car pooling enthusiasts, we are redefining the way this generation thinks about alternative transportation.<br>Cooperative Commuting is funded by great sponsors and donations from extremely generous individuals which enables us to keep doing what we're doing, looking for ways to make car pooling easier, faster, and better. We're not trying to rule the world however; we want to give regular people, young and old, business types and family types, the freedom to live life on a greener planet. We have a team that is dedicated, existing members who are loyal, and a world that is on the brink for change.</p>"; 
 
+	
+	// AJAX CALL
+
+	function get_XmlHttp() 
+	{
+		// create the variable that will contain the instance of the XMLHttpRequest object (initially with null value)
+		var xmlHttp = null;
+
+		if( window.XMLHttpRequest ) 
+		{		// for Firefox, IE7+, Opera, Safari, ...
+			xmlHttp = new XMLHttpRequest();
+		}
+		else if ( window.ActiveXObject ) 
+		{	// for Internet Explorer 5 or 6
+			xmlHttp = new ActiveXObject( "Microsoft.XMLHTTP" );
+		}
+
+		return xmlHttp;
+	}
+
+	// sends data to a php file, via POST, and displays the received answer
+	function ajaxrequest( php_file, tagID ) 
+	{
+		var request =  get_XmlHttp( ); // call the function for the XMLHttpRequest instance
+
+		// create pairs index=value with data that must be sent to server
+
+		request.open( "POST", php_file, true ); // set the request
+
+		// adds  a header to tell the PHP script to recognize the data as is sent via POST
+		request.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+		request.send( "" );// calls the send() method with datas as parameter
+
+		// Check request status
+		// If the response is received completely, will be transferred to the HTML tag with tagID
+		request.onreadystatechange = function( ) 
+		{
+			if ( request.readyState == 4 )
+			{
+				console.log("astring"); 
+				console.log(request.responseText); 
+				document.getElementById( tagID ).style.visibility = "visible";
+ 	 			document.getElementById( tagID ).innerHTML = request.responseText;
+			}
+		}
+	}
+	
+	
+	
+	//var php_response = create_obj( "php_response", "span", about_text );
+	//apply_class( php_response, "php_response" );
+	//php_response.style.visibility = "visible";
+	//php_response.innerHTML = "&nbsp;";
+	
+	//ajaxrequest( 'assets/scripts/carpools_table.php', 'php_response' );	
+//var search_cont = make_div( "search_cont", 1 , body_cont );
+//size_div( search_cont, "326" /*win_width * .17*/ , "518" );
+//place_div( search_cont, 20, 30 );
+//apply_class( search_cont, "search_cont" );
+//search_cont.innerHTML = "<span class='search_text'>Search</span>";
+
+/*
 // SEARCH CRITERIA SECTION
 
 var br = create_obj( "", "br", search_cont );
-//br = create_obj( "", "br", search_cont );
+br = create_obj( "", "br", search_cont );
 
 var point_a_text = create_obj( "point_a_text", "span", search_cont );
 apply_class( point_a_text, "point_a_text" );
@@ -305,194 +363,9 @@ var vehicle_pref_options_box = create_option_box( "vehicle_pref_options_box", "d
 apply_class( vehicle_pref_options_box, "vehicle_pref_options_box" );
 
 br = create_obj( "", "br", search_cont );
+*/
 
-var search_button = make_button( "search_button", "assets/images/arrow_icon.png", "signup_arrow_icon", "SEARCH", search_cont );
-apply_class( search_button, "search_button_up" );
-mouse_down_swap_classname( search_button, "search_button_up", "search_button_down" );
 
-search_button.onmouseup = function ( ) {
-	
-	console.log( point_a_box.value + " " + point_b_box.value );
-	
-	update_map( point_a_box.value, point_b_box.value );
-	
-};
-
-br = create_obj( "", "br", search_cont );
-
-// MAP SECTION
-
-var map_cont = make_div( "map_cont", 3, body_cont );
-size_div( map_cont, "576" /*win_width * .3*/, parseInt( search_cont.clientHeight, 10 ) + 0 );
-place_div( map_cont, parseInt( get_style_attribute( search_cont, "left" ) ) + parseInt( get_style_attribute( search_cont, "width" ) ) + 30, -528 );
-apply_class( map_cont, "map_cont" ); 
-
-var map, layer;
-
-function init_map( )
-{
-	MQA.EventUtil.observe(window, 'load', function() 
-	{
-
-		/*Create an object for options*/ 
-		var options={
-			elt:document.getElementById('map_cont'),       /*ID of element on the page where you want the map added*/ 
-			zoom:13,                                  /*initial zoom level of the map*/ 
-			latLng:{lat:40.735383, lng:-73.984655},   /*center of map in latitude/longitude */ 
-			mtype:'osm',                              /*map type (osm)*/ 
-			bestFitMargin:0,                          /*margin offset from the map viewport when applying a bestfit on shapes*/ 
-			zoomOnDoubleClick:true                    /*zoom in when double-clicking on map*/ 
-		};
-
-		/*Construct an instance of MQA.TileMap with the options object*/ 
-		window.map = new MQA.TileMap(options);
-
-		MQA.withModule('largezoom','viewoptions','geolocationcontrol','insetmapcontrol','mousewheel', function() 
-		{
-
-			map.addControl(
-				new MQA.LargeZoom(),
-				new MQA.MapCornerPlacement(MQA.MapCorner.TOP_LEFT, new MQA.Size(5,5))
-			);
-
-			map.addControl(new MQA.ViewOptions());
-
-			map.addControl(
-				new MQA.GeolocationControl(),
-				new MQA.MapCornerPlacement(MQA.MapCorner.TOP_RIGHT, new MQA.Size(10,50))
-			);
-
-			/*Inset Map Control options*/ 
-			var options={
-			size:{width:150, height:125},
-			zoom:3,
-			mapType:'osmsat',
-			minimized:false 
-			};
-
-			map.addControl(
-				new MQA.InsetMapControl(options),
-				new MQA.MapCornerPlacement(MQA.MapCorner.BOTTOM_RIGHT)
-			);
-
-			map.enableMouseWheelZoom();
-		});
-	});
-}
-
-function update_map( loc_a, loc_b )
-{
-	
-	map_cont = get_obj( "map_cont" );
-	
-	map_cont.innerHTML = "";
-	
-	map_handle = null;
-		
-	/*Arrays to hold lat/lng data for use with the Directions module*/		
-		
-	var latitude = new Array;
-	
-	var longitude = new Array;
-
-	/*Addresses that need to be geocoded*/
-	
-	var locations = new Array( loc_a, loc_b );
-
-	/*Using the Nominatim API Service to geocode the addresses in the locations array*/
-	
-	for ( i = 0 ; i < locations.length ; i++ ) 
-	{
-		$.ajax({
-			url: 'http://open.mapquestapi.com/nominatim/v1/search',
-			dataType: 'json',
-			async: false,
-			crossDomain: true,
-			data: {
-				q: locations[i],
-				format: 'json'
-			},
-
-			success: function( data, textStatus, jqXHR ) 
-			{
-				/*Storing the lat/lngs in an array for later use*/
-				
-					latitude.push( data[0].lat );
-				longitude.push( data[0].lon );
-
-				/*Get map and create the route when done*/
-				
-				if( i==locations.length-1 ) 
-				{
-					getMap( );
-				}
-			}
-		});
-	}
-
-	function getMap() 
-	{
-		/*Create an object for options*/
-		
-		var options = {
-			elt:document.getElementById( 'map_cont' ),        /*ID of element on the page where you want the map added*/
-			zoom:18,                                   /*initial zoom level of map*/
-			//latLng:{lat:40.735383, lng:-73.984655},    /*center of map in latitude/longitude*/
-			mtype:'osm'                                /*map type (osm)*/
-		};
-
-		/*Construct an instance of MQA.TileMap with the options object*/
-		
-		window.map = new MQA.TileMap(options);			
-		
-
-		/*This uses the MQA.withModule support to download and initialize the routing support modules. When the
-		modules are ready for use, the function provided as the last parameter will be executed.*/
-		
-		MQA.withModule( 'largezoom', 'directions', function() 
-		{
-			
-			map.addControl(
-				new MQA.LargeZoom(),
-				new MQA.MapCornerPlacement( MQA.MapCorner.TOP_LEFT, new MQA.Size(5,5) )
-			);
-			
-			/*Uses the MQA.TileMap.addRoute function (added to the TileMap with the directions module)
-			passing in an array of location objects as the only parameter.*/
-			map.addRoute([
-				{latLng: {lat:latitude[0], lng:longitude[0]}},
-				{latLng: {lat:latitude[1], lng:longitude[1]}}
-			]);				
-		});		
-	}
-}
-
-init_map( );
-
-// var osm_attribute = get_obj( "OpenLayers.Control.Attribution_7" ); // Hide the water mark.
-
-// osm_attribute.style.visibility = "hidden"; // Hide the water mark.
-
-// ACCOUNT SECTION
-
-var account_cont = make_div( "account_cont", 1, body_cont );
-size_div( account_cont, "298" /*win_width * .155*/, parseInt( search_cont.clientHeight, 10 ) + 0 );
-place_div( account_cont, parseInt( get_style_attribute( map_cont, "left" ) ) + parseInt( get_style_attribute( map_cont, "width" ) ) + 30, 30 );
-apply_class( account_cont, "account_cont" ); 
-account_cont.innerHTML = "<span class='account_text'>Account</span><br><br>";
-
-var account_blank_img = make_img( "account_blank_img", "assets/images/account_icon.png", account_cont );
-apply_class( account_blank_img, "account_blank_img" );
-
-br = create_obj( "", "br", account_cont );
-
-var login_text = create_obj( "login_text", "span", account_cont );
-login_text.innerHTML = "LOGIN " + "&nbsp;&nbsp;&nbsp;<img src='assets/images/arrow_icon.png' class='login_arrow_icon'>";
-apply_class( login_text, "login_text" );
-
-//mouse_over_swap_classname( login_text, "login_text", "login_text_over" );
-
-// END CREATING THE BODY OF THE PAGE
 
 // BEGIN SIGNUP
 
@@ -501,7 +374,7 @@ signup_button.onclick = function(){ signup_dialog_box_init( ); };
 function signup_dialog_box_init( )
 {
 	var signup_dialog_cont = make_div( "signup_dialog_cont", 10, document.body );
-	size_div( signup_dialog_cont, "300", "550" );
+	size_div( signup_dialog_cont, "300", "300" );
 	place_div( signup_dialog_cont, window.innerWidth/2 - 150, window.innerHeight/2 - 150 );
 	apply_class( signup_dialog_cont, "signup_dialog_cont" ); 
 	signup_dialog_cont.innerHTML = "<span class='signup_text'>Sign-up</span><br>";
@@ -566,88 +439,13 @@ function signup_dialog_box_init( )
 	apply_class( last_name_text, "pass_word_text" );
 	last_name_text.innerHTML = "Last Name:";
 	
-	//br = create_obj( "","br", signup_dialog_cont );
+	//br = create_obj( "", "br", signup_dialog_cont );
 
 	var last_name_box = create_input_box( "last_name_box", "text", "last_name", signup_dialog_cont );
 	apply_class( last_name_box, "pass_word_box" );
 
 	br = create_obj( "", "br", signup_dialog_cont );
-	var email_text = create_obj("email_text", "span", signup_dialog_cont);
-	apply_class(email_text, "pass_word_text");
-	email_text.innerHTML = "Email:";
-	
-	var email_box = create_input_box( "email_box", "text", "email", signup_dialog_cont );
-	apply_class(email_box, "pass_word_box");
-	
 	br = create_obj( "", "br", signup_dialog_cont );
-	br = create_obj( "", "br", signup_dialog_cont );
-	
-	var driver_text = create_obj("driver_text", "span", signup_dialog_cont);
-	apply_class(driver_text, "pass_word_text");
-	driver_text.innerHTML = "Driver?";
-		
-	var driver_box = create_input_box( "driver_box", "text", "driver", signup_dialog_cont );
-	apply_class(driver_box, "pass_word_box");
-	
-	br = create_obj( "", "br", signup_dialog_cont );
-	br = create_obj( "", "br", signup_dialog_cont );
-	
-	var address_text = create_obj("address_text", "span", signup_dialog_cont);
-	apply_class(address_text, "pass_word_text");
-	address_text.innerHTML = "Street Address:";
-		
-	var address_box = create_input_box( "address_box", "text", "address", signup_dialog_cont );
-	apply_class(address_box, "pass_word_box");
-	br = create_obj( "", "br", signup_dialog_cont );
-	
-	var address2_text = create_obj("address2_text", "span", signup_dialog_cont);
-	apply_class(address2_text, "pass_word_text");
-	address2_text.innerHTML = "Apt:";
-		
-	var address2_box = create_input_box( "address2_box", "text", "address2", signup_dialog_cont );
-	apply_class(address2_box, "pass_word_box");
-	br = create_obj( "", "br", signup_dialog_cont );
-	
-	var city_text = create_obj("city_text", "span", signup_dialog_cont);
-	apply_class(city_text, "pass_word_text");
-	city_text.innerHTML = "City:";
-		
-	var city_box = create_input_box( "city_box", "text", "city", signup_dialog_cont );
-	apply_class(city_box, "pass_word_box");
-	br = create_obj( "", "br", signup_dialog_cont );
-	
-	var state_text = create_obj("state_text", "span", signup_dialog_cont);
-	apply_class(state_text, "pass_word_text");
-	state_text.innerHTML = "State:";
-		
-	var state_box = create_input_box( "state_box", "text", "state", signup_dialog_cont );
-	apply_class(state_box, "pass_word_box");
-	br = create_obj( "", "br", signup_dialog_cont );
-	
-	var zip_text = create_obj("zip_text", "span", signup_dialog_cont);
-	apply_class(zip_text, "pass_word_text");
-	zip_text.innerHTML = "Zip Code:";
-		
-	var zip_box = create_input_box( "zip_box", "text", "zip", signup_dialog_cont );
-	apply_class(zip_box, "pass_word_box");
-	br = create_obj( "", "br", signup_dialog_cont );
-	
-	var country_text = create_obj("country_text", "span", signup_dialog_cont);
-	apply_class(country_text, "pass_word_text");
-	country_text.innerHTML = "Country:";
-		
-	var country_box = create_input_box( "country_box", "text", "country", signup_dialog_cont );
-	apply_class(country_box, "pass_word_box");
-	br = create_obj( "", "br", signup_dialog_cont );
-	br = create_obj( "", "br", signup_dialog_cont );
-	
-	var need_text = create_obj("need_text", "span", signup_dialog_cont);
-	apply_class(need_text, "pass_word_text");
-	need_text.innerHTML = "Need Commuting For:";
-		
-	var need_box = create_input_box( "need_box", "text", "need", signup_dialog_cont );
-	apply_class(need_box, "pass_word_box");
-	br = create_obj( "", "br", signup_dialog_cont );	
 		
 	var submit_button = make_button( "submit_button", "", "", "SUBMIT", signup_dialog_cont );
 	apply_class( submit_button, "submit_button_up" );
@@ -662,6 +460,7 @@ function signup_dialog_box_init( )
 	cancel_button.onclick = function() { cancel_signup_form( ); };
 }
 
+
 function submit_signup_data( )
 {
 
@@ -670,21 +469,12 @@ function submit_signup_data( )
 	var pass_word_confirm_box = get_obj( "pass_word_confirm_box" );
 	var first_name_box        = get_obj( "first_name_box" );
 	var last_name_box         = get_obj( "last_name_box" );
-	var email_box 			  = get_obj("email_box");
-	var driver_box 			  = get_obj("driver_box");
-	var address_box 		  = get_obj("address_box");
-	var address2_box 		  = get_obj("address2_box");
-	var city_box 			  = get_obj("city_box");
-	var state_box 			  = get_obj("state_box");
-	var zip_box 			  = get_obj("zip_box");
-	var country_box 		  = get_obj("country_box");
-	var need_box 			  = get_obj("need_box");
 	
 	var current_date = new Date();
 	
 	var last_accessed = current_date.getFullYear() + "/" + current_date.getMonth() + "/" + current_date.getDate( );
 	
-	var data_fields = [ user_name_box.value, first_name_box.value, last_name_box.value, email_box.value, driver_box.value, address_box.value, address2_box.value, city_box.value, state_box.value, zip_box.value, country_box.value, need_box.value, last_accessed ];
+	var data_fields = [ user_name_box.value, first_name_box.value, last_name_box.value, last_accessed ];
 	
 	// VALIDATION
 	
@@ -694,7 +484,7 @@ function submit_signup_data( )
 		return;
 	}
 	
-	if ( user_name_box.value == "" || pass_word_box.value == "" || first_name_box.value == "" || last_name_box.value == "" || email_box.value == "" || driver_box.value == "" || address_box.value == "" || address2_box.value == "" || city_box.value == "" || state_box.value == "" || zip_box.value == "" || country_box.value == "" )
+	if ( user_name_box.value == "" || pass_word_box.value == "" || first_name_box.value == "" || last_name_box.value == "" )
 	{
 		window.alert( "All fields are required, thanks." );
 		return;
@@ -713,12 +503,6 @@ function submit_signup_data( )
 		return;
 	}	
 	
-	if ( !isEmail( email_box.value ) )
-	{
-		window.alert( "Is that a valid email address?" );
-		return;
-	}	
-	
 	// AJAX CALL
 
 	function get_XmlHttp() 
@@ -727,7 +511,7 @@ function submit_signup_data( )
 		var xmlHttp = null;
 
 		if( window.XMLHttpRequest ) 
-		{		// for Forefox, IE7+, Opera, Safari, ...
+		{		// for Firefox, IE7+, Opera, Safari, ...
 			xmlHttp = new XMLHttpRequest();
 		}
 		else if ( window.ActiveXObject ) 
@@ -748,16 +532,6 @@ function submit_signup_data( )
 		data_string  += '&pass_word=' + pass_word_box.value;
 		data_string  += '&first_name=' + first_name_box.value;
 		data_string  += '&last_name=' + last_name_box.value;
-		data_string  += '&email=' + email_box.value;
-		data_string  += '&driver=' + driver_box.value;
-		data_string  += '&address=' + address_box.value;
-		data_string  += '&address2=' + address2_box.value;
-		data_string  += '&city=' + city_box.value;
-		data_string  += '&state=' + state_box.value;
-		data_string  += '&zip=' + zip_box.value;
-		data_string  += '&country=' + country_box.value;
-		data_string  += '&need=' + need_box.value;
-		
 
 		request.open( "POST", php_file, true ); // set the request
 
@@ -767,7 +541,6 @@ function submit_signup_data( )
 
 		// Check request status
 		// If the response is received completely, will be transferred to the HTML tag with tagID
-
 		request.onreadystatechange = function( ) 
 		{
 			if ( request.readyState == 4 )
@@ -820,64 +593,9 @@ function submit_signup_data( )
 					
 					var br = create_obj( "", "br", account_cont );
 					
-					var email_text = create_obj( "email_text", "span", account_cont );
-					apply_class( email_text, "pass_word_text" );
-					email_text.innerHTML = "Email: " + data_fields[3];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var driver_text = create_obj( "driver_text", "span", account_cont );
-					apply_class( driver_text, "pass_word_text" );
-					driver_text.innerHTML = "Driver:" + data_fields[4];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var address_text = create_obj( "address_text", "span", account_cont );
-					apply_class( address_text, "pass_word_text" );
-					address_text.innerHTML = "Address: " + data_fields[5];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var address2_text = create_obj( "address2_text", "span", account_cont );
-					apply_class( address2_text, "pass_word_text" );
-					address2_text.innerHTML = "Apt: " + data_fields[6];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var city_text = create_obj( "city_text", "span", account_cont );
-					apply_class( city_text, "pass_word_text" );
-					city_text.innerHTML = "City: " + data_fields[7];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var state_text = create_obj( "state_text", "span", account_cont );
-					apply_class( state_text, "pass_word_text" );
-					state_text.innerHTML = "State: " + data_fields[8];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var zip_text = create_obj( "zip_text", "span", account_cont );
-					apply_class( zip_text, "pass_word_text" );
-					zip_text.innerHTML = "Zip Code: " + data_fields[9];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var country_text = create_obj( "country_text", "span", account_cont );
-					apply_class( country_text, "pass_word_text" );
-					country_text.innerHTML = "Country: " + data_fields[10];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var need_text = create_obj( "need_text", "span", account_cont );
-					apply_class( need_text, "pass_word_text" );
-					need_text.innerHTML = "Need Commuting For: " + data_fields[11];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					
 					var last_accessed_text = create_obj( "last_accessed_text", "span", account_cont );
 					apply_class( last_accessed_text, "pass_word_text" );
-					last_accessed_text.innerHTML = "Last Accessed: " + data_fields[12];					
+					last_accessed_text.innerHTML = "Last Accessed: " + data_fields[3];					
 					
 					window.setTimeout( function(){ cancel_signup_form(); }, 2000 ); // Clear out the signup dialog.
 				}
@@ -957,8 +675,6 @@ function logout( )
 // END SIGNUP
 
 // BEGIN LOGIN 
-
-login_text.onclick = function(){ login_dialog_box_init( ); };
 
 function login_dialog_box_init( )
 {
@@ -1137,64 +853,9 @@ function submit_login_data( )
 					
 					var br = create_obj( "", "br", account_cont );
 					
-					var email_text = create_obj( "email_text", "span", account_cont );
-					apply_class( email_text, "pass_word_text" );
-					email_text.innerHTML = "Email: " + data_fields[1];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var driver_text = create_obj( "driver_text", "span", account_cont );
-					apply_class( driver_text, "pass_word_text" );
-					driver_text.innerHTML = "Driver:" + data_fields[4];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var address_text = create_obj( "address_text", "span", account_cont );
-					apply_class( address_text, "pass_word_text" );
-					address_text.innerHTML = "Address: " + data_fields[5];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var address2_text = create_obj( "address2_text", "span", account_cont );
-					apply_class( address2_text, "pass_word_text" );
-					address2_text.innerHTML = "Apt: " + data_fields[6];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var city_text = create_obj( "city_text", "span", account_cont );
-					apply_class( city_text, "pass_word_text" );
-					city_text.innerHTML = "City: " + data_fields[7];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var state_text = create_obj( "state_text", "span", account_cont );
-					apply_class( state_text, "pass_word_text" );
-					state_text.innerHTML = "State: " + data_fields[8];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var zip_text = create_obj( "zip_text", "span", account_cont );
-					apply_class( zip_text, "pass_word_text" );
-					zip_text.innerHTML = "Zip Code: " + data_fields[9];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var country_text = create_obj( "country_text", "span", account_cont );
-					apply_class( country_text, "pass_word_text" );
-					country_text.innerHTML = "Country: " + data_fields[10];
-					
-					var br = create_obj( "", "br", account_cont );
-					
-					var need_text = create_obj( "need_text", "span", account_cont );
-					apply_class( need_text, "pass_word_text" );
-					need_text.innerHTML = "Need Commuting For: " + data_fields[11];
-					
-					var br = create_obj( "", "br", account_cont );
-					
 					var last_accessed_text = create_obj( "last_accessed_text", "span", account_cont );
 					apply_class( last_accessed_text, "pass_word_text" );
-					//last_accessed_text.innerHTML = "Last Accessed: " + data_fields[12];
-					last_accessed_text.innerHTML = "Last Accessed: " + last_accessed;
+					last_accessed_text.innerHTML = "Last Accessed: " + data_fields[4];					
 					
 					window.setTimeout( function(){ cancel_login_form(); }, 2000 ); // Clear out the login dialog.
 				}
@@ -1240,6 +901,7 @@ function cancel_login_form( )
 // END LOGIN 
 
 // BEGIN RESPONSIVE SIZING
+
 
 window.setInterval( resize, 1000 );
 

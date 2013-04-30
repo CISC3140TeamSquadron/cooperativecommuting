@@ -17,12 +17,12 @@
 	
 	if ( isset( $_POST[ 'user_name' ] ) )
 	{ 		
-		$user_name = $_POST[ 'user_name'  ];
+		$user_name = mysql_real_escape_string( $_POST[ 'user_name'  ] );
 	}
 	
 	if ( isset( $_POST[ 'pass_word' ] ) )
 	{
-		$pass_word = $_POST[ 'pass_word'  ];
+		$pass_word = mysql_real_escape_string( $_POST[ 'pass_word'  ] );
 	}
 	
 	if ( $user_name != "" || $pass_word != "" )
