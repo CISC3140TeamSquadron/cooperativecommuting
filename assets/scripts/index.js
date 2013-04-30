@@ -194,6 +194,13 @@ size_div( main_nav_cont, "672" /*win_width * .35*/, parseInt( logo.clientHeight,
 place_div( main_nav_cont, parseInt( logo.clientWidth, 10 ) + 20, parseInt( logo.clientHeight, 10 ) - 90 );
 
 var home_link = get_obj( "home_link" );
+home_link.onmouseup = function( ) { window.location.href = "index.php"; }
+var carpools_link = get_obj( "carpools_link" );
+carpools_link.onmouseup = function( ) { window.location.href = "carpools.php"; }
+var how_link = get_obj( "how_link" );
+how_link.onmouseup = function( ) { window.location.href = "how.php"; }
+var about_link = get_obj( "about_link" );
+about_link.onmouseup = function( ) { window.location.href = "about.php"; }
 
 /*
 
