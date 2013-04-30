@@ -20,22 +20,22 @@
 	
 	if ( isset( $_POST[ 'user_name' ] ) )
 	{ 		
-		$user_name = $_POST[ 'user_name'  ];
+		$user_name = mysql_real_escape_string( $_POST[ 'user_name'  ] );
 	}
 	
 	if ( isset( $_POST[ 'pass_word' ] ) )
 	{
-		$pass_word = $_POST[ 'pass_word'  ];
+		$pass_word = mysql_real_escape_string( $_POST[ 'pass_word'  ] );
 	}
 	
 	if ( isset( $_POST[ 'first_name' ] ) )
 	{
-		$first_name = $_POST[ 'first_name' ];
+		$first_name = mysql_real_escape_string( $_POST[ 'first_name' ] );
 	}
 	
 	if ( isset( $_POST[ 'last_name' ] ) )
 	{
-		$last_name = $_POST[ 'last_name'  ];	
+		$last_name = mysql_real_escape_string( $_POST[ 'last_name'  ] );	
 	}
 	
 	
