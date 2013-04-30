@@ -200,7 +200,7 @@ carpools_link.onmouseup = function( ) { window.location.href = "carpools.php"; }
 var how_link = get_obj( "how_link" );
 how_link.onmouseup = function( ) { window.location.href = "how.php"; }
 var about_link = get_obj( "about_link" );
-about_link.onmouseup = function( ) { window.location.href = "about.php"; 
+about_link.onmouseup = function( ) { window.location.href = "about.php"; }
 var contact_link = get_obj( "contact_link" );
 contact_link.onmouseup = function( ) { window.location.href = "contact.php"; }
 
