@@ -1,0 +1,31 @@
+<html>
+  <head>	
+  
+    <title>Cooperative Commuting Administrators Login</title>
+	
+    <style> h1 {text-align:center} </style>
+    <h1>Cooperative Commuting Administrators Page</h1>
+
+  </head>
+
+  <body>
+	
+    <form method='post' action='admin_Login_Validation.php'>
+		<table cellspacing='0' align='center' >
+
+		<tr><td> <label for='email'> Email </label></td></tr>
+		<tr><td><input type='email' id='email' name='user_email' 
+			class='textfield' align='center' placeholder='Enter your email' 
+			autofocus='&quot;autofocus&quot;' required></td>
+			
+		<tr><td><label for='password'> Password </label></td></tr>	  
+		<td><input type='password' id='password' name='user_password' 
+		class='textfield' align='center' placeholder='Password' required></td>
+		
+		<tr><td><input type='submit' name='submit_value' value='Login' style='center'></td></tr>
+		<tr><td><a href='admin_SignUp_Form.php'>Not an admin? Sign up!</a></td></tr>
+		</table>
+    </form>
+
+  </body>
+</html>
