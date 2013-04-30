@@ -1,8 +1,6 @@
 <html> <!--This page validates the email and password provided in the 'admin_Login' page.-->
   <head>
-
-    <title>Welcome to the Cooperative Commuting Admin Page!</title>
-
+    <title>Welcome to the Cooperative Commuting admin page!</title>
   </head>
 
   <body>
@@ -10,56 +8,38 @@
     <?php
 		
 		//User-submitted information gathered from 'admin_Login.php'.
-		if ( isset( $_POST[ 'user_email' ]) ) { 
+		if ( !empty( $_POST[ 'user_email' ]) ) { 
 			$email = $_POST[ 'user_email'  ];
+			mysql_real_escape_string($email); //To prevent MySQL injection.
 		}
 		else { echo "You must enter an email address."; }
 		
-		if ( isset( $_POST[ 'user_password' ]) ) {
+		if ( !empty( $_POST[ 'user_password' ]) ) {
 			$pass = $_POST[ 'user_password'  ]; 
+			mysql_real_escape_string($pass);
 		}
 		else { echo "You must enter a password."; }
 
-	
-		//Connecting to the selected database portion.
-		$local_Host = 'localhost';
-		$username = '';
-		$DB_Username = '';
-		$password = '';
-	
-		$conn = mysql_connect($local_Host, $username, $password) 
-		or die('Could not connect:'.mysql_error());	
-		$db_found = mysql_select_db($DB_Username);	
+		include 'connect.php'; //Connect to the MySQL database.
+		
 		$query = "SELECT * FROM admin_Users WHERE user_email='".$email."'";
 		$result = mysql_query($query);
 		
-		if ($db_found) {
-			$row = mysql_fetch_array($result);
+		$row = mysql_fetch_array($result);
 		
-			$search_SQL_Table= "SELECT * FROM admin_Users WHERE 		
-			user_email='$email' AND user_pass='$pass'";
+		$search_SQL_Table= "SELECT * FROM admin_Users WHERE user_email='$email' AND user_pass='$pass'";
 
-			$result = mysql_query($search_SQL_Table);
-			$count = mysql_num_rows($result);
+		$result = mysql_query($search_SQL_Table);
+		$count = mysql_num_rows($result);
 			
-			if($count == 1){ //If a row in the table with matching email and password has been found.
-				echo '<style> h1 {text-align:center} </style>';
-				echo '<h1>Welcome, ' .$row['firstname']. ' ' 							
-				.$row['lastname']. '!</h1>';
-				echo '<style> form {text-align:center} </style>';
-				echo '<form method="link" action="display_Users_Table.php">
-				<input type="submit" value="View Users"></form>';
-			}
-			else {
-				echo 'Invalid login information.';
-			}
-			mysql_close($conn);				
+		if($count == 1){ //If a row in the table with matching email and password has been found.
+			header("location:admin_Welcome.php"); //Redirect the brower.
 		}
 		else {
-			echo 'Database not found.';
-			mysql_close($conn);			
+			echo 'Invalid login information.';
 		}
-?>
+	
+	?>
     
   </body>
 </html>
