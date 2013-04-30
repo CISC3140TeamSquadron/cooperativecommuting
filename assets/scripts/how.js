@@ -201,6 +201,8 @@ var how_link = get_obj( "how_link" );
 how_link.onmouseup = function( ) { window.location.href = "how.php"; }
 var about_link = get_obj( "about_link" );
 about_link.onmouseup = function( ) { window.location.href = "about.php"; }
+var contact_link = get_obj( "contact_link" );
+contact_link.onmouseup = function( ) { window.location.href = "contact.php"; }
 
 /*
 
@@ -370,7 +372,7 @@ br = create_obj( "", "br", search_cont );
 
 // BEGIN SIGNUP
 
-signup_button.onclick = function(){ signup_dialog_box_init( ); };
+//signup_button.onclick = function(){ signup_dialog_box_init( ); };
 
 function signup_dialog_box_init( )
 {
