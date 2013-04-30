@@ -1,14 +1,8 @@
 <?php
-	//This php file connects to the database and modifies the field data of the 'cc_users'
-	//table based on the post input from 'edit_User_Form'.
+	/*This php file connects to the database and modifies the field data of the 'cc_users'
+	table based on the post input from 'edit_User_Form'.*/
 	
-	$local_Host = 'localhost';
-	$username = '';
-	$database = '';
-	$password = '';
-	$conn = mysql_connect($local_Host, $username, $password, $database) 
-	or die('Could not connect:'.mysql_error());	
-	$db_found = mysql_select_db($database);
+	include 'connect.php'; //Connect to the MySQL database.
 	
 	$userID = $_POST['user_ID'];
 	$email = $_POST['eMail'];
@@ -32,12 +26,8 @@
 	$preference_Stat = $_POST['preference'];
 	$desc = $_POST['description'];
 	$commute_Stat = $_POST['commuting_For'];
-
-		
-	if ($db_found)  {		
-		print "FOUND!";
 	
-		$order = "UPDATE cc_users SET email=' ".$email."
+	$order = "UPDATE cc_users SET email=' ".$email."
 		', pword=' ".$pass." 
 		', first_name=' ".$firstname." 
 		', last_name=' ".$lastname." 
@@ -59,13 +49,6 @@
 		', user_desc=' ".$desc."
 		' WHERE user_id= '".$userID."'";
 		
-		$result = mysql_query($order) or die('Query failed: '.mysql_error());
-		mysql_close($conn);		
-
-		header("location:display_Users_Table.php");
-	}
-	else { 
-		echo "Database not found";		
-		mysql_close($conn);
-	}
+	$result = mysql_query($order) or die('Query failed: '.mysql_error());
+	header("location:display_Users_Table.php");
 ?>
