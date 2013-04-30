@@ -9,7 +9,7 @@
 
 	*/
 
-	require( "/virtual/users/e14157-14235/storage/vars.php" ); // needed for user id / pass to database
+	//require( "/virtual/users/e14157-14235/storage/vars.php" ); // needed for user id / pass to database
 	include ( "config.php" );
 
 	class db 

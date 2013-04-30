@@ -13,7 +13,7 @@
 	
 	$user_name = "";
 	$pass_word = "";
-	$last_accessed = date( "Y-m-d" );	
+	//$last_accessed = date( "Y-m-d" );	
 	
 	if ( isset( $_POST[ 'user_name' ] ) )
 	{ 		
@@ -28,7 +28,7 @@
 	if ( $user_name != "" || $pass_word != "" )
 	{
 	
-		$query_string = "SELECT * FROM " . $data_base_table . " WHERE uname = '" . $user_name . "' AND pword = '" . $pass_word . "'";
+		$query_string = "SELECT * FROM " . cc_users . " WHERE email = '" . $user_name . "' AND pword = '" . $pass_word . "'";
 		
 		$result = $db->select_record( $query_string );
 		
@@ -37,19 +37,27 @@
 	
 			foreach( $result as $r ) 
 			{
-				$user_name      = $r['uname'];
-				$first_name     = $r['fname'];
-				$last_name      = $r['lname'];
-				$last_accessed  = $r['lastaccessed'];
+				$user_name      = $r['email'];
+				$first_name     = $r['first_name'];
+				$last_name      = $r['last_name'];
+				$driver			= $r['driver'];
+				$address		= $r['home_street'];
+				$address2		= $r['home_apt'];
+				$city			= $r['home_city'];
+				$state			= $r['home_state'];
+				$zip			= $r['home_zip'];
+				$country		= $r['home_country'];
+				$commuting_for	= $r['commuting_for'];
+				$last_accessed  = $r['last_accessed'];
 			}
 		
-			$query_string = "UPDATE " . $data_base_table . " SET lastaccessed = '" . $last_accessed ."' WHERE uname = '" . $user_name ."' AND pword ='" . $pass_word . "'";
+		//	$query_string = "UPDATE " . cc_users . " SET lastaccessed = '" . $last_accessed ."' WHERE email = '" . $user_name ."' AND pword ='" . $pass_word . "'";
 		
 			$result = $db->update_record( $query_string );
 		
 			if ( $result )
 			{
-					echo "Welcome back!;" . $user_name . ";" . $first_name . ";" . $last_name . ";" . $last_accessed . ";";
+					echo "Welcome back!;" . $user_name . ";" . $first_name . ";" . $last_name . ";" . $driver . ";" . $address . ";" . $address2 . ";" . $city . ";" . $state . ";" . $zip . ";" . $country . ";" . $commuting_for. ";" .$last_accessed .  ";";
 			}
 		
 		}

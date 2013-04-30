@@ -15,7 +15,16 @@
 	$pass_word = "";
 	$first_name = "";
 	$last_name = "";
-	$last_accessed = date( "Y-m-d" );
+	$email = "";
+	$driver = "";
+	$address = "";
+	$address2 = "";
+	$city = "";
+	$state = "";
+	$zip = "";
+	$country = "";
+	$need = "";
+//	$last_accessed = date( "Y-m-d" );
 	
 	
 	if ( isset( $_POST[ 'user_name' ] ) )
@@ -38,17 +47,62 @@
 		$last_name = $_POST[ 'last_name'  ];	
 	}
 	
+	if ( isset( $_POST[ 'email' ] ) )
+	{
+		$email = $_POST[ 'email'  ];	
+	}
 	
-	if ( $user_name != "" || $pass_word != "" || $first_name != "" || $last_name != "" )
+	if ( isset( $_POST[ 'driver' ] ) )
+	{
+		$driver = $_POST[ 'driver'  ];	
+	}
+	
+	if ( isset( $_POST[ 'address' ] ) )
+	{
+		$address = $_POST[ 'address'  ];	
+	}
+	
+	if ( isset( $_POST[ 'address2' ] ) )
+	{
+		$address2 = $_POST[ 'address2'  ];	
+	}
+	
+	if ( isset( $_POST[ 'city' ] ) )
+	{
+		$city = $_POST[ 'city'  ];	
+	}
+	
+	if ( isset( $_POST[ 'state' ] ) )
+	{
+		$state = $_POST[ 'state'  ];	
+	}
+	
+	if ( isset( $_POST[ 'zip' ] ) )
+	{
+		$zip = $_POST[ 'zip'  ];	
+	}
+	
+	if ( isset( $_POST[ 'country' ] ) )
+	{
+		$country = $_POST[ 'country'  ];	
+	}
+	
+	if ( isset( $_POST[ 'need' ] ) )
+	{
+		$need = $_POST[ 'need'  ];	
+	}
+	
+	if ( $user_name != "" || $pass_word != "" || $first_name != "" || $last_name != "" || $email != "" || $driver != "" || $address != "" || $address2 != "" || $city != "" || $state != "" || $zip != "" || $country != "" || $need != ""  )
 	{
 	
-		$query_string = "SELECT uname FROM " . $data_base_table . " WHERE uname = '" . $user_name . "'";
+		$query_string = "SELECT email FROM cc_users WHERE email = '$user_name'";	
 		
 		$result = $db->select_record( $query_string );
 		
 		if ( $result == false )
 		{ 
-			$query_string = "INSERT INTO " . $data_base_table . " ( uname, pword, fname, lname, lastaccessed ) VALUES ( '$user_name', '$pass_word', '$first_name', '$last_name', '$last_accessed' )";
+			$query_string = "INSERT INTO cc_users ( email, pword, first_name, last_name, driver, home_street, home_apt, home_city, home_state, home_zip, home_country, commuting_for) VALUES 
+			( '$user_name', '$pass_word', '$first_name', '$last_name', '$driver', '$address', '$address2', '$city', '$state', '$zip', '$country', '$need' )";
 		
 			$result = $db->insert_record( $query_string );
 		
