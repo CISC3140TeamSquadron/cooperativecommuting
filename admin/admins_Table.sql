@@ -1,6 +1,6 @@
 DROP TABLE admin_Users;
 
-CREATE TABLE admin_Users (user_email VARCHAR(40) PRIMARY KEY, user_pass VARCHAR(10), firstname VARCHAR(30), lastname VARCHAR(30));
+CREATE TABLE admin_Users (user_email VARCHAR(50) PRIMARY KEY, user_pass VARCHAR(10), firstname VARCHAR(30), lastname VARCHAR(30));
 
 INSERT INTO admin_Users (user_email, user_pass, firstname, lastname) VALUES ('deeprecious001@gmail.com' , 'cisc3140_0' , 'Dionne' , 'Alexander');
 
