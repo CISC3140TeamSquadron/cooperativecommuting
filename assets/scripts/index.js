@@ -10,6 +10,8 @@ Author: DAVID LETTIER
 
 // HELPER FUNCTIONS
 
+// Makes a div layer and attaches it to append_to in the DOM.
+
 function make_div( id, z, append_to )
 {
 	var x = document.createElement( "div" );
@@ -21,6 +23,8 @@ function make_div( id, z, append_to )
 	return x;
 }
 
+// Makes an image and attaches it to append_to in the DOM.
+
 function make_img( id, src, append_to )
 {
 	var x = document.createElement( "img" );
@@ -31,6 +35,8 @@ function make_img( id, src, append_to )
 	
 	return x;
 }
+
+// Makes a buton and attaches it to the append_to in the DOM.
 
 function make_button( id, img_src, img_classname, label, append_to )
 {
@@ -52,11 +58,15 @@ function make_button( id, img_src, img_classname, label, append_to )
 	return x;
 }
 
+// Places a div layer on the page.
+
 function place_div( div_instance, x, y )
 {
 	div_instance.style.left = x + "px";
 	div_instance.style.top = y + "px";
 }
+
+// Sizes a div layer on the page.
 
 function size_div( div_instance, w, h )
 {
@@ -79,10 +89,14 @@ function size_div( div_instance, w, h )
 	}
 }
 
+// Sets an element to have a classname for CSS to find.
+
 function apply_class( obj_instance, classname )
 {
 	obj_instance.className = classname;
 }
+
+// Creates a generate element and attaches it to the DOM.
 
 function create_obj( id, obj_type, append_to )
 {
@@ -98,15 +112,21 @@ function create_obj( id, obj_type, append_to )
 	return x;
 }
 
+// Gets an element in the DOM by id.
+
 function get_obj( id )
 {
 	return document.getElementById( id );
 }
 
+// Gets an element's style attributes.
+
 function get_style_attribute( obj_instance, css_style )
 {
 	return window.getComputedStyle( obj_instance ).getPropertyValue( css_style );
 }
+
+// Creates a fading in and out of DIV's bottom border when the mouse hovers over it.
 
 function mouse_bottom_border( obj_instance )
 {
@@ -126,6 +146,8 @@ function mouse_over_swap_classname( obj_instance, classname1, classname2 )
 	obj_instance.onmouseout = function() { obj_instance.className = classname1;  };
 }
 
+// Create a form element input box and attach to the DOM.
+
 function create_input_box( id, type, name, append_to )
 {
 	var x = document.createElement( "input" );
@@ -137,6 +159,8 @@ function create_input_box( id, type, name, append_to )
 	
 	return x;
 }
+
+// Create a form element option box and attach to the DOM.
 
 function create_option_box( id, name, options, append_to )
 {
@@ -156,6 +180,8 @@ function create_option_box( id, name, options, append_to )
 	
 	return x;
 }
+
+// Get the height of the DOM body on the page.
 
 function get_body_height( ) 
 {
@@ -177,22 +203,31 @@ var win_height = get_body_height();
 
 // BEGIN CREATING THE HEADER OF THE PAGE
 
-var logo_cont = make_div( "logo_cont", 1, document.body );
-var main_nav_cont = make_div( "main_nav_cont", 1, document.body );
-var signup_cont = make_div( "signup_cont", 1, document.body );
+var logo_cont = make_div( "logo_cont", 1, document.body ); // Create a container for the logo image to resides in.
+var main_nav_cont = make_div( "main_nav_cont", 1, document.body ); // Create a container for the main navigation to reside in.
+var signup_cont = make_div( "signup_cont", 1, document.body ); // Create a container for the sigup button to reside in.
+
+// Apply the css classes in index.css
 
 apply_class( logo_cont, "logo_cont" );
 apply_class( main_nav_cont, "main_nav_cont" );
 apply_class( signup_cont, "signup_cont" );
 
+// Create the logo
+
 var logo = make_img( "logo_full", "assets/images/car_logo.png", logo_cont );
+
+// Apply the logo class
 
 apply_class( logo, "logo_full" );
 
+// Create all the main navigation links and place them, size them on the page.
 
 main_nav_cont.innerHTML = "<span id='home_link'>Home</span> &nbsp;&nbsp;&nbsp;&nbsp; <span id='carpools_link'>Carpools</span> &nbsp;&nbsp;&nbsp;&nbsp; <span id='how_link'>How It Works</span> &nbsp;&nbsp;&nbsp;&nbsp; <span id='about_link'>About</span> &nbsp;&nbsp;&nbsp;&nbsp; <span id='contact_link'>Contact</span>";
 size_div( main_nav_cont, "672" /*win_width * .35*/, parseInt( logo.clientHeight, 10 ) );
 place_div( main_nav_cont, parseInt( logo.clientWidth, 10 ) + 20, parseInt( logo.clientHeight, 10 ) - 90 );
+
+// Generate the link bottom line mouse hover effect
 
 var home_link = get_obj( "home_link" );
 home_link.onmouseup = function( ) { window.location.href = "index.php"; }
@@ -216,6 +251,8 @@ mouse_bottom_border( contact_link );
 
 */
 
+// Create the sign up button, place it, size, and apply the CSS class
+
 var signup_button = make_button( "signup_button", "assets/images/arrow_icon.png", "signup_arrow_icon", "SIGNUP", signup_cont );
 apply_class( signup_button, "signup_button_up" );
 mouse_down_swap_classname( signup_button, "signup_button_up", "signup_button_down" );
@@ -225,6 +262,8 @@ place_div( signup_cont, parseInt( main_nav_cont.clientWidth, 10 ) + parseInt( lo
 // END CREATING THE HEADER OF THE PAGE
 
 // BEGIN CREATING THE BODY OF THE PAGE
+
+// Create the body container that holds all of the body elements like the map, account box, and search box.
 
 var body_cont = make_div( "body_cont", 1 , document.body );
 size_div( body_cont, win_width, win_height - parseInt( get_style_attribute( body_cont, "top" ) ) );
@@ -238,6 +277,8 @@ apply_class( search_cont, "search_cont" );
 search_cont.innerHTML = "<span class='search_text'>Search</span>";
 
 // SEARCH CRITERIA SECTION
+
+// Create the search box, place it, size it, and fill it with form elements.
 
 var br = create_obj( "", "br", search_cont );
 //br = create_obj( "", "br", search_cont );
@@ -310,6 +351,8 @@ var search_button = make_button( "search_button", "assets/images/arrow_icon.png"
 apply_class( search_button, "search_button_up" );
 mouse_down_swap_classname( search_button, "search_button_up", "search_button_down" );
 
+// Create an event call back that updates the map based on the values in the Search box form values.
+
 search_button.onmouseup = function ( ) {
 	
 	console.log( point_a_box.value + " " + point_b_box.value );
@@ -321,6 +364,8 @@ search_button.onmouseup = function ( ) {
 br = create_obj( "", "br", search_cont );
 
 // MAP SECTION
+
+// Create a map container, place it, size it, and load in the map from MapQuest using the OpenStreetsMap Database.
 
 var map_cont = make_div( "map_cont", 3, body_cont );
 size_div( map_cont, "576" /*win_width * .3*/, parseInt( search_cont.clientHeight, 10 ) + 0 );
@@ -379,6 +424,9 @@ function init_map( )
 		});
 	});
 }
+
+// This function updates the map when the search button is pressed on the search box "form"
+// It queries the OSM database for tiles and navigation points and then renders a SVG vector line over the map form Point A to Point B
 
 function update_map( loc_a, loc_b )
 {
@@ -467,13 +515,15 @@ function update_map( loc_a, loc_b )
 	}
 }
 
-init_map( );
+init_map( ); // Show the map initially
 
 // var osm_attribute = get_obj( "OpenLayers.Control.Attribution_7" ); // Hide the water mark.
 
 // osm_attribute.style.visibility = "hidden"; // Hide the water mark.
 
 // ACCOUNT SECTION
+
+// Create the account container, box, initial icon image, and login button.
 
 var account_cont = make_div( "account_cont", 1, body_cont );
 size_div( account_cont, "298" /*win_width * .155*/, parseInt( search_cont.clientHeight, 10 ) + 0 );
@@ -496,10 +546,15 @@ apply_class( login_text, "login_text" );
 
 // BEGIN SIGNUP
 
+// When the sign up button is pressed, gray out the screen, and display the dialog box with all the needed form elements.
+
 signup_button.onclick = function(){ signup_dialog_box_init( ); };
 
 function signup_dialog_box_init( )
 {
+	
+	// Create the sign up dialog container, box, form elements, and button.
+	
 	var signup_dialog_cont = make_div( "signup_dialog_cont", 10, document.body );
 	size_div( signup_dialog_cont, "300", "550" );
 	place_div( signup_dialog_cont, window.innerWidth/2 - 150, window.innerHeight/2 - 150 );
@@ -657,10 +712,15 @@ function signup_dialog_box_init( )
 	apply_class( cancel_button, "cancel_button_up" );
 	mouse_down_swap_classname( cancel_button, "cancel_button_up", "cancel_button_down" );
 	
+	// Event call backs. 
+	
 	submit_button.onclick = function() { submit_signup_data( ); };
 	
 	cancel_button.onclick = function() { cancel_signup_form( ); };
 }
+
+// This function gets all of the sign up form elements values and packages them to be sent via an 
+// asynchronous call to add_user.php
 
 function submit_signup_data( )
 {
@@ -779,8 +839,11 @@ function submit_signup_data( )
 				document.getElementById( tagID ).innerHTML = request.responseText;
 
 				
-				if ( php_response.innerHTML == "Welcome!" ) // Added a user. Now to change the signup button and account column.
+				if ( php_response.innerHTML == "Welcome!" ) // Added a user. Now to change the sign up button and account column.
 				{	
+					
+					// Here with remove the generic login icon, login button, and sign up button with the account details, and log out button.
+					
 					var signup_cont = get_obj( "signup_cont" );
 					var signup_button = get_obj( "signup_button" );
 	
@@ -872,8 +935,7 @@ function submit_signup_data( )
 					apply_class( need_text, "pass_word_text" );
 					need_text.innerHTML = "Need Commuting For: " + data_fields[11];
 					
-					var br = create_obj( "", "br", account_cont );
-					
+					var br = create_obj( "", "br", account_cont );					
 					
 					var last_accessed_text = create_obj( "last_accessed_text", "span", account_cont );
 					apply_class( last_accessed_text, "pass_word_text" );
@@ -889,12 +951,16 @@ function submit_signup_data( )
 		}
 	}
 	
+	// Remove the sign up dialog from the screen.
+	
 	var signup_dialog_cont = get_obj( "signup_dialog_cont" );
 	
 	while ( signup_dialog_cont.firstChild ) 
 	{
 		signup_dialog_cont.removeChild( signup_dialog_cont.firstChild );
 	}
+	
+	// Send off the request to add_user.php
 	
 	var php_response = create_obj( "php_response", "span", signup_dialog_cont );
 	apply_class( php_response, "php_response" );
@@ -903,6 +969,8 @@ function submit_signup_data( )
 	
 	ajaxrequest( 'assets/scripts/add_user.php', 'php_response' );	
 }
+
+// User canceled the sign up form dialog box so remove it from the screen.
 
 function cancel_signup_form( )
 {
@@ -919,6 +987,9 @@ function cancel_signup_form( )
 	
 	document.body.removeChild( grey_out );
 }
+
+// Log out removes the account info form the account box, replaces it with the generic login icon, login button, and restores the sign up button thereby replacing
+// the log out button.
 
 function logout( )
 {
@@ -958,10 +1029,14 @@ function logout( )
 
 // BEGIN LOGIN 
 
+// Call back event function. When the user presses the login button.
+
 login_text.onclick = function(){ login_dialog_box_init( ); };
 
 function login_dialog_box_init( )
 {
+	
+	// Create the login dialog container, box, form elements, and the submit and cancel button.
 	
 	var login_dialog_cont = make_div( "login_dialog_cont", 10, document.body );
 	size_div( login_dialog_cont, "300", "200" );
@@ -1014,6 +1089,8 @@ function login_dialog_box_init( )
 	
 	cancel_button.onclick = function() { cancel_login_form( ); };
 }
+
+// Send the login form element values via an AJAX call the login_user.php.
 
 function submit_login_data( )
 {
@@ -1098,6 +1175,10 @@ function submit_login_data( )
 				
 				if ( data_fields[0] == "Welcome back!" ) // Added a user. Now to change the signup button and account column.
 				{	
+					// Getting Welcom back! from login_user.php means they actually had an account int he SQL DB.
+					
+					// So swap out the sign up button for a log out button, load in the account details into the account container/box.
+					
 					var signup_cont = get_obj( "signup_cont" );
 					var signup_button = get_obj( "signup_button" );
 	
@@ -1206,12 +1287,16 @@ function submit_login_data( )
 		}
 	}
 	
+	// Once submitted, remove the log in dialog box.
+	
 	var login_dialog_cont = get_obj( "login_dialog_cont" );
 	
 	while ( login_dialog_cont.firstChild ) 
 	{
 		login_dialog_cont.removeChild( login_dialog_cont.firstChild );
 	}
+	
+	// Send off the request.
 	
 	var php_response = create_obj( "php_response", "span", login_dialog_cont );
 	apply_class( php_response, "php_response" );
@@ -1220,6 +1305,8 @@ function submit_login_data( )
 	
 	ajaxrequest( 'assets/scripts/login_user.php', 'php_response' );	
 }
+
+// User canceled the login form dialog box.
 
 function cancel_login_form( )
 {
@@ -1240,6 +1327,8 @@ function cancel_login_form( )
 // END LOGIN 
 
 // BEGIN RESPONSIVE SIZING
+
+// For responsive design. Form body elements to window size.
 
 window.setInterval( resize, 1000 );
 
