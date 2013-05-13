@@ -1,13 +1,24 @@
 <html>
+	<!--This is the login page for the admin site-->
   <head>	
-  
+  	
     <title>Cooperative Commuting Administrators Login</title>
 	
-    <style> h1 {text-align:center} </style>
     <h1>Cooperative Commuting Administrators Page</h1>
 
   </head>
-
+	<style type="text/css">
+	
+	h1 {
+		text-align:center;
+		color: #666666;
+		padding: 10px; 
+	}
+	body {
+		font-family: Arial, Verdana, sans-serif;
+		background-color: #f8f8f8;
+	}
+	</style>
   <body>
 	
     <form method='post' action='admin_Login_Validation.php'>
@@ -16,7 +27,7 @@
 		<tr><td> <label for='email'> Email </label></td></tr>
 		<tr><td><input type='email' id='email' name='user_email' 
 			class='textfield' align='center' placeholder='Enter your email' 
-			autofocus='&quot;autofocus&quot;' required></td>
+			autofocus required></td>
 			
 		<tr><td><label for='password'> Password </label></td></tr>	  
 		<td><input type='password' id='password' name='user_password' 
