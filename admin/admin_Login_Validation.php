@@ -1,27 +1,22 @@
-<html> <!--This page validates the email and password provided in the 'admin_Login' page.-->
-  <head>
-    <title>Welcome to the Cooperative Commuting admin page!</title>
-  </head>
+<?php
+		/*UPDATE: 5/8/13 Fixed 'mysql_real_escape_string' problem. Solution: have to be 
+		connected to the database BEFORE assigning the value using 
+		mysql_real_escape_string.*/
 
-  <body>
+		include 'connect.php'; //Connect to the MySQL database
 
-    <?php
-		
-		//User-submitted information gathered from 'admin_Login.php'.
+		//Checks to see if the variables are empty.
 		if ( !empty( $_POST[ 'user_email' ]) ) { 
-			$email = $_POST[ 'user_email'  ];
-			mysql_real_escape_string($email); //To prevent MySQL injection.
+			$email = mysql_real_escape_string($_POST[ 'user_email'  ]); 
 		}
 		else { echo "You must enter an email address."; }
 		
 		if ( !empty( $_POST[ 'user_password' ]) ) {
-			$pass = $_POST[ 'user_password'  ]; 
-			mysql_real_escape_string($pass);
+			$pass = mysql_real_escape_string($_POST[ 'user_password'  ]);
 		}
 		else { echo "You must enter a password."; }
-
-		include 'connect.php'; //Connect to the MySQL database.
 		
+		//Search the table for a matching email address.
 		$query = "SELECT * FROM admin_Users WHERE user_email='".$email."'";
 		$result = mysql_query($query);
 		
@@ -39,7 +34,4 @@
 			echo 'Invalid login information.';
 		}
 	
-	?>
-    
-  </body>
-</html>
+?>
