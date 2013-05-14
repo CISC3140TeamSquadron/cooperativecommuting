@@ -313,7 +313,7 @@ contact_cont.innerHTML = "<span class='signup_text'>Contact Us</span>";
 	reset_button.onclick = function() { cancel_contact_form( ); };
 
 
-	function submit_form_data( )
+function submit_form_data( )
 {	
 	var email_add_box         = get_obj( "email_add_box" );
 	var fname_box       	  = get_obj( "fname_box" );
@@ -459,7 +459,7 @@ signup_button.onclick = function(){ signup_dialog_box_init( ); };
 function signup_dialog_box_init( )
 {
 	var signup_dialog_cont = make_div( "signup_dialog_cont", 10, document.body );
-	size_div( signup_dialog_cont, "300", "550" );
+	size_div( signup_dialog_cont, "300", "630" );
 	place_div( signup_dialog_cont, window.innerWidth/2 - 150, window.innerHeight/2 - 150 );
 	apply_class( signup_dialog_cont, "signup_dialog_cont" ); 
 	signup_dialog_cont.innerHTML = "<span class='signup_text'>Sign-up</span><br>";
@@ -605,7 +605,9 @@ function signup_dialog_box_init( )
 		
 	var need_box = create_input_box( "need_box", "text", "need", signup_dialog_cont );
 	apply_class(need_box, "pass_word_box");
-	br = create_obj( "", "br", signup_dialog_cont );	
+	
+	br = create_obj( "", "br", signup_dialog_cont );
+	br = create_obj( "", "br", signup_dialog_cont );
 		
 	var submit_button = make_button( "submit_button", "", "", "SUBMIT", signup_dialog_cont );
 	apply_class( submit_button, "submit_button_up" );
@@ -628,8 +630,8 @@ function submit_signup_data( )
 	var pass_word_confirm_box = get_obj( "pass_word_confirm_box" );
 	var first_name_box        = get_obj( "first_name_box" );
 	var last_name_box         = get_obj( "last_name_box" );
-	var email_box 			  = get_obj("email_box");
-	var driver_box 			  = get_obj("driver_box");
+	var email_box 			 = get_obj("email_box");
+	var driver_box 	       = get_obj("driver_box");
 	var address_box 		  = get_obj("address_box");
 	var address2_box 		  = get_obj("address2_box");
 	var city_box 			  = get_obj("city_box");
@@ -729,14 +731,15 @@ function submit_signup_data( )
 		{
 			if ( request.readyState == 4 )
 			{
-			
+				data_fields = request.responseText.split( ";" );
+				
 				signup_dialog_cont.style.height = "auto";
 				
 				document.getElementById( tagID ).style.visibility = "visible";
-				document.getElementById( tagID ).innerHTML = request.responseText;
+				document.getElementById( tagID ).innerHTML = data_fields[0];
 
 				
-				if ( php_response.innerHTML == "Welcome!" ) // Added a user. Now to change the signup button and account column.
+				if ( data_fields[0] == "Welcome!" ) // Added a user. Now to change the signup button and account column.
 				{	
 					var signup_cont = get_obj( "signup_cont" );
 					var signup_button = get_obj( "signup_button" );
@@ -759,82 +762,236 @@ function submit_signup_data( )
 					account_cont.removeChild( account_cont.childNodes[1] );
 					account_cont.removeChild( account_cont.childNodes[2] );
 					
+					account_cont.style.height = ( parseInt( account_cont.style.height.replace( "px", "" ) ) + 100 ) + "px";
+					
+					/*
+					
 					var user_name_text = create_obj( "user_name_text", "span", account_cont );
 					apply_class( user_name_text, "pass_word_text" );
-					user_name_text.innerHTML = "Username: " + data_fields[0];
+					user_name_text.innerHTML = "Username: " + data_fields[1];
+					
+					*/
+					
+					var user_name_text = create_obj( "user_name_text", "span", account_cont );
+					apply_class( user_name_text, "pass_word_text" );
+					user_name_text.innerHTML = "Username: " + data_fields[1];
+					
+					var user_name_text_box = create_input_box( "user_name_text_box", "hidden", "user_name", account_cont );
+					apply_class( user_name_text_box, "account_text_box" );
+					user_name_text_box.value = data_fields[1];
 					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var first_name_text = create_obj( "first_name_text", "span", account_cont );
 					apply_class( first_name_text, "pass_word_text" );
-					first_name_text.innerHTML = "First Name: " + data_fields[1];
+					first_name_text.innerHTML = "First Name: " + data_fields[2];
+					
+					*/
+					
+					var first_name_text = create_obj( "first_name_text", "span", account_cont );
+					apply_class( first_name_text, "pass_word_text" );
+					first_name_text.innerHTML = "First Name: ";
+					
+					var first_name_text_box = create_input_box( "first_name_text_box", "text", "first_name", account_cont );
+					apply_class( first_name_text_box, "account_text_box" );
+					first_name_text_box.value = data_fields[2];
 					
 					br = create_obj( "", "br", account_cont );
 					
+					/*
+					
 					var last_name_text = create_obj( "last_name_text", "span", account_cont );
 					apply_class( last_name_text, "pass_word_text" );
-					last_name_text.innerHTML = "Last Name: " + data_fields[2];
+					last_name_text.innerHTML = "Last Name: " + data_fields[3];
+					
+					*/
+					
+					var last_name_text = create_obj( "last_name_text", "span", account_cont );
+					apply_class( last_name_text, "pass_word_text" );
+					last_name_text.innerHTML = "Last Name: ";
+					
+					var last_name_text_box = create_input_box( "last_name_text_box", "text", "last_name", account_cont );
+					apply_class( last_name_text_box, "account_text_box" );
+					last_name_text_box.value = data_fields[3];
 					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var email_text = create_obj( "email_text", "span", account_cont );
 					apply_class( email_text, "pass_word_text" );
-					email_text.innerHTML = "Email: " + data_fields[3];
+					email_text.innerHTML = "Email: " + data_fields[1];
+					
+					*/
+					
+					var email_text = create_obj( "email_text", "span", account_cont );
+					apply_class( email_text, "pass_word_text" );
+					email_text.innerHTML = "Email: " + data_fields[1];
+					
+					var email_text_box = create_input_box( "email_text_box", "hidden", "email_name", account_cont );
+					apply_class( email_text_box, "account_text_box" );
+					email_text_box.value = data_fields[1];
 					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var driver_text = create_obj( "driver_text", "span", account_cont );
 					apply_class( driver_text, "pass_word_text" );
 					driver_text.innerHTML = "Driver:" + data_fields[4];
 					
+					*/
+					
+					var driver_text = create_obj( "driver_text", "span", account_cont );
+					apply_class( driver_text, "pass_word_text" );
+					driver_text.innerHTML = "Driver: ";
+					
+					var driver_text_box = create_input_box( "driver_text_box", "text", "driver", account_cont );
+					apply_class( driver_text_box, "account_text_box" );
+					driver_text_box.value = data_fields[4];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var address_text = create_obj( "address_text", "span", account_cont );
 					apply_class( address_text, "pass_word_text" );
 					address_text.innerHTML = "Address: " + data_fields[5];
 					
+					*/
+					
+					var address_text = create_obj( "address_text", "span", account_cont );
+					apply_class( address_text, "pass_word_text" );
+					address_text.innerHTML = "Address: ";
+					
+					var address_text_box = create_input_box( "address_text_box", "text", "address", account_cont );
+					apply_class( address_text_box, "account_text_box" );
+					address_text_box.value = data_fields[5];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var address2_text = create_obj( "address2_text", "span", account_cont );
 					apply_class( address2_text, "pass_word_text" );
 					address2_text.innerHTML = "Apt: " + data_fields[6];
 					
+					*/
+					
+					var address2_text = create_obj( "address2_text", "span", account_cont );
+					apply_class( address2_text, "pass_word_text" );
+					address2_text.innerHTML = "Apt: ";
+					
+					var address2_text_box = create_input_box( "address2_text_box", "text", "address2", account_cont );
+					apply_class( address2_text_box, "account_text_box" );
+					address2_text_box.value = data_fields[6];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var city_text = create_obj( "city_text", "span", account_cont );
 					apply_class( city_text, "pass_word_text" );
 					city_text.innerHTML = "City: " + data_fields[7];
 					
+					*/
+					
+					var city_text = create_obj( "city_text", "span", account_cont );
+					apply_class( city_text, "pass_word_text" );
+					city_text.innerHTML = "City: ";
+					
+					var city_text_box = create_input_box( "city_text_box", "text", "city", account_cont );
+					apply_class( city_text_box, "account_text_box" );
+					city_text_box.value = data_fields[7];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var state_text = create_obj( "state_text", "span", account_cont );
 					apply_class( state_text, "pass_word_text" );
 					state_text.innerHTML = "State: " + data_fields[8];
 					
+					*/
+					
+					var state_text = create_obj( "state_text", "span", account_cont );
+					apply_class( state_text, "pass_word_text" );
+					state_text.innerHTML = "State: ";
+					
+					var state_text_box = create_input_box( "state_text_box", "text", "state", account_cont );
+					apply_class( state_text_box, "account_text_box" );
+					state_text_box.value = data_fields[8];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var zip_text = create_obj( "zip_text", "span", account_cont );
 					apply_class( zip_text, "pass_word_text" );
 					zip_text.innerHTML = "Zip Code: " + data_fields[9];
 					
+					*/
+					
+					var zip_text = create_obj( "zip_text", "span", account_cont );
+					apply_class( zip_text, "pass_word_text" );
+					zip_text.innerHTML = "Zip: ";
+					
+					var zip_text_box = create_input_box( "zip_text_box", "text", "zip", account_cont );
+					apply_class( zip_text_box, "account_text_box" );
+					zip_text_box.value = data_fields[9];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var country_text = create_obj( "country_text", "span", account_cont );
 					apply_class( country_text, "pass_word_text" );
 					country_text.innerHTML = "Country: " + data_fields[10];
 					
+					*/
+					
+					var country_text = create_obj( "country_text", "span", account_cont );
+					apply_class( country_text, "pass_word_text" );
+					country_text.innerHTML = "Country: ";
+					
+					var country_text_box = create_input_box( "country_text_box", "text", "country", account_cont );
+					apply_class( country_text_box, "account_text_box" );
+					country_text_box.value = data_fields[10];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var need_text = create_obj( "need_text", "span", account_cont );
 					apply_class( need_text, "pass_word_text" );
 					need_text.innerHTML = "Need Commuting For: " + data_fields[11];
 					
-					var br = create_obj( "", "br", account_cont );
+					*/
 					
+					var need_text = create_obj( "need_text", "span", account_cont );
+					apply_class( need_text, "pass_word_text" );
+					need_text.innerHTML = "Need Commmuting For: ";
+					
+					var need_text_box = create_input_box( "need_text_box", "text", "need", account_cont );
+					apply_class( need_text_box, "account_text_box" );
+					need_text_box.value = data_fields[11];
+					
+					var br = create_obj( "", "br", account_cont );
 					
 					var last_accessed_text = create_obj( "last_accessed_text", "span", account_cont );
 					apply_class( last_accessed_text, "pass_word_text" );
-					last_accessed_text.innerHTML = "Last Accessed: " + data_fields[12];					
+					//last_accessed_text.innerHTML = "Last Accessed: " + data_fields[12];
+					last_accessed_text.innerHTML = "Last Accessed: " + last_accessed;
+					
+					br = create_obj( "", "br", account_cont );
+
+					var update_text = create_obj( "update_text", "span", account_cont );
+					update_text.innerHTML = "UPDATE " + "&nbsp;&nbsp;&nbsp;<img src='assets/images/arrow_icon.png' class='update_arrow_icon'>";
+					apply_class( update_text, "update_text" );	
+					
+					update_text.onclick = function(){ update_user_account( ); };					
 					
 					window.setTimeout( function(){ cancel_signup_form(); }, 2000 ); // Clear out the signup dialog.
 				}
@@ -897,7 +1054,9 @@ function logout( )
 		account_cont.removeChild( account_cont.firstChild );
 	}
 	
-	account_cont.innerHTML = "<span class='account_text'>Account</span><br><br>";	
+	account_cont.innerHTML = "<span class='account_text'>Account</span><br><br>";
+
+	account_cont.style.height = ( parseInt( account_cont.style.height.replace( "px", "" ) ) - 100 ) + "px";
 	
 	var account_blank_img = make_img( "account_blank_img", "assets/images/account_icon.png", account_cont );
 	apply_class( account_blank_img, "account_blank_img" );
@@ -1076,75 +1235,221 @@ function submit_login_data( )
 					account_cont.removeChild( account_cont.childNodes[1] );
 					account_cont.removeChild( account_cont.childNodes[2] );
 					
+					account_cont.style.height = ( parseInt( account_cont.style.height.replace( "px", "" ) ) + 100 ) + "px";
+					
+					/*
+					
 					var user_name_text = create_obj( "user_name_text", "span", account_cont );
 					apply_class( user_name_text, "pass_word_text" );
 					user_name_text.innerHTML = "Username: " + data_fields[1];
 					
+					*/
+					
+					var user_name_text = create_obj( "user_name_text", "span", account_cont );
+					apply_class( user_name_text, "pass_word_text" );
+					user_name_text.innerHTML = "Username: " + data_fields[1];
+					
+					var user_name_text_box = create_input_box( "user_name_text_box", "hidden", "user_name", account_cont );
+					apply_class( user_name_text_box, "account_text_box" );
+					user_name_text_box.value = data_fields[1];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var first_name_text = create_obj( "first_name_text", "span", account_cont );
 					apply_class( first_name_text, "pass_word_text" );
 					first_name_text.innerHTML = "First Name: " + data_fields[2];
 					
+					*/
+					
+					var first_name_text = create_obj( "first_name_text", "span", account_cont );
+					apply_class( first_name_text, "pass_word_text" );
+					first_name_text.innerHTML = "First Name: ";
+					
+					var first_name_text_box = create_input_box( "first_name_text_box", "text", "first_name", account_cont );
+					apply_class( first_name_text_box, "account_text_box" );
+					first_name_text_box.value = data_fields[2];
+					
 					br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var last_name_text = create_obj( "last_name_text", "span", account_cont );
 					apply_class( last_name_text, "pass_word_text" );
 					last_name_text.innerHTML = "Last Name: " + data_fields[3];
 					
+					*/
+					
+					var last_name_text = create_obj( "last_name_text", "span", account_cont );
+					apply_class( last_name_text, "pass_word_text" );
+					last_name_text.innerHTML = "Last Name: ";
+					
+					var last_name_text_box = create_input_box( "last_name_text_box", "text", "last_name", account_cont );
+					apply_class( last_name_text_box, "account_text_box" );
+					last_name_text_box.value = data_fields[3];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var email_text = create_obj( "email_text", "span", account_cont );
 					apply_class( email_text, "pass_word_text" );
 					email_text.innerHTML = "Email: " + data_fields[1];
 					
+					*/
+					
+					var email_text = create_obj( "email_text", "span", account_cont );
+					apply_class( email_text, "pass_word_text" );
+					email_text.innerHTML = "Email: " + data_fields[1];
+					
+					var email_text_box = create_input_box( "email_text_box", "hidden", "email_name", account_cont );
+					apply_class( email_text_box, "account_text_box" );
+					email_text_box.value = data_fields[1];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var driver_text = create_obj( "driver_text", "span", account_cont );
 					apply_class( driver_text, "pass_word_text" );
 					driver_text.innerHTML = "Driver:" + data_fields[4];
 					
+					*/
+					
+					var driver_text = create_obj( "driver_text", "span", account_cont );
+					apply_class( driver_text, "pass_word_text" );
+					driver_text.innerHTML = "Driver: ";
+					
+					var driver_text_box = create_input_box( "driver_text_box", "text", "driver", account_cont );
+					apply_class( driver_text_box, "account_text_box" );
+					driver_text_box.value = data_fields[4];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var address_text = create_obj( "address_text", "span", account_cont );
 					apply_class( address_text, "pass_word_text" );
 					address_text.innerHTML = "Address: " + data_fields[5];
 					
+					*/
+					
+					var address_text = create_obj( "address_text", "span", account_cont );
+					apply_class( address_text, "pass_word_text" );
+					address_text.innerHTML = "Address: ";
+					
+					var address_text_box = create_input_box( "address_text_box", "text", "address", account_cont );
+					apply_class( address_text_box, "account_text_box" );
+					address_text_box.value = data_fields[5];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var address2_text = create_obj( "address2_text", "span", account_cont );
 					apply_class( address2_text, "pass_word_text" );
 					address2_text.innerHTML = "Apt: " + data_fields[6];
 					
+					*/
+					
+					var address2_text = create_obj( "address2_text", "span", account_cont );
+					apply_class( address2_text, "pass_word_text" );
+					address2_text.innerHTML = "Apt: ";
+					
+					var address2_text_box = create_input_box( "address2_text_box", "text", "address2", account_cont );
+					apply_class( address2_text_box, "account_text_box" );
+					address2_text_box.value = data_fields[6];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var city_text = create_obj( "city_text", "span", account_cont );
 					apply_class( city_text, "pass_word_text" );
 					city_text.innerHTML = "City: " + data_fields[7];
 					
+					*/
+					
+					var city_text = create_obj( "city_text", "span", account_cont );
+					apply_class( city_text, "pass_word_text" );
+					city_text.innerHTML = "City: ";
+					
+					var city_text_box = create_input_box( "city_text_box", "text", "city", account_cont );
+					apply_class( city_text_box, "account_text_box" );
+					city_text_box.value = data_fields[7];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var state_text = create_obj( "state_text", "span", account_cont );
 					apply_class( state_text, "pass_word_text" );
 					state_text.innerHTML = "State: " + data_fields[8];
 					
+					*/
+					
+					var state_text = create_obj( "state_text", "span", account_cont );
+					apply_class( state_text, "pass_word_text" );
+					state_text.innerHTML = "State: ";
+					
+					var state_text_box = create_input_box( "state_text_box", "text", "state", account_cont );
+					apply_class( state_text_box, "account_text_box" );
+					state_text_box.value = data_fields[8];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var zip_text = create_obj( "zip_text", "span", account_cont );
 					apply_class( zip_text, "pass_word_text" );
 					zip_text.innerHTML = "Zip Code: " + data_fields[9];
 					
+					*/
+					
+					var zip_text = create_obj( "zip_text", "span", account_cont );
+					apply_class( zip_text, "pass_word_text" );
+					zip_text.innerHTML = "Zip: ";
+					
+					var zip_text_box = create_input_box( "zip_text_box", "text", "zip", account_cont );
+					apply_class( zip_text_box, "account_text_box" );
+					zip_text_box.value = data_fields[9];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var country_text = create_obj( "country_text", "span", account_cont );
 					apply_class( country_text, "pass_word_text" );
 					country_text.innerHTML = "Country: " + data_fields[10];
 					
+					*/
+					
+					var country_text = create_obj( "country_text", "span", account_cont );
+					apply_class( country_text, "pass_word_text" );
+					country_text.innerHTML = "Country: ";
+					
+					var country_text_box = create_input_box( "country_text_box", "text", "country", account_cont );
+					apply_class( country_text_box, "account_text_box" );
+					country_text_box.value = data_fields[10];
+					
 					var br = create_obj( "", "br", account_cont );
+					
+					/*
 					
 					var need_text = create_obj( "need_text", "span", account_cont );
 					apply_class( need_text, "pass_word_text" );
 					need_text.innerHTML = "Need Commuting For: " + data_fields[11];
+					
+					*/
+					
+					var need_text = create_obj( "need_text", "span", account_cont );
+					apply_class( need_text, "pass_word_text" );
+					need_text.innerHTML = "Need Commmuting For: ";
+					
+					var need_text_box = create_input_box( "need_text_box", "text", "need", account_cont );
+					apply_class( need_text_box, "account_text_box" );
+					need_text_box.value = data_fields[11];
 					
 					var br = create_obj( "", "br", account_cont );
 					
@@ -1152,6 +1457,14 @@ function submit_login_data( )
 					apply_class( last_accessed_text, "pass_word_text" );
 					//last_accessed_text.innerHTML = "Last Accessed: " + data_fields[12];
 					last_accessed_text.innerHTML = "Last Accessed: " + last_accessed;
+					
+					br = create_obj( "", "br", account_cont );
+
+					var update_text = create_obj( "update_text", "span", account_cont );
+					update_text.innerHTML = "UPDATE " + "&nbsp;&nbsp;&nbsp;<img src='assets/images/arrow_icon.png' class='update_arrow_icon'>";
+					apply_class( update_text, "update_text" );	
+					
+					update_text.onclick = function(){ update_user_account( ); };
 					
 					window.setTimeout( function(){ cancel_login_form(); }, 2000 ); // Clear out the login dialog.
 				}
@@ -1192,6 +1505,109 @@ function cancel_login_form( )
 	var grey_out = get_obj( "grey_out" );
 	
 	document.body.removeChild( grey_out );
+}
+
+function update_user_account( )
+{
+	var user_name_text_box = get_obj( "user_name_text_box" );
+	var first_name_text_box = get_obj( "first_name_text_box" );
+	var last_name_text_box = get_obj( "last_name_text_box" );
+	var driver_text_box = get_obj( "driver_text_box" );
+	var address_text_box = get_obj( "address_text_box" );
+	var address2_text_box = get_obj( "address2_text_box" );
+	var city_text_box = get_obj( "city_text_box" );
+	var state_text_box = get_obj( "state_text_box" );
+	var zip_text_box = get_obj( "zip_text_box" );
+	var country_text_box = get_obj( "country_text_box" );
+	var need_text_box = get_obj( "need_text_box" );
+	
+	function get_XmlHttp() 
+	{
+		// create the variable that will contain the instance of the XMLHttpRequest object (initially with null value)
+		var xmlHttp = null;
+
+		if( window.XMLHttpRequest ) 
+		{		// for Forefox, IE7+, Opera, Safari, ...
+			xmlHttp = new XMLHttpRequest();
+		}
+		else if ( window.ActiveXObject ) 
+		{	// for Internet Explorer 5 or 6
+			xmlHttp = new ActiveXObject( "Microsoft.XMLHTTP" );
+		}
+
+		return xmlHttp;
+	}
+
+	// sends data to a php file, via POST, and displays the received answer
+	function ajaxrequest( php_file, tagID ) 
+	{
+		var request =  get_XmlHttp( ); // call the function for the XMLHttpRequest instance
+
+		// create pairs index=value with data that must be sent to server
+		var data_string = 'user_name='  + user_name_text_box.value;
+		data_string  += '&first_name='   + first_name_text_box.value;
+		data_string  += '&last_name='   + last_name_text_box.value;
+		data_string  += '&driver='      + driver_text_box.value;
+		data_string  += '&address='     + address_text_box.value;
+		data_string  += '&address2='    + address2_text_box.value;
+		data_string  += '&city='        + city_text_box.value;
+		data_string  += '&state='       + state_text_box.value;
+		data_string  += '&zip='         + zip_text_box.value;
+		data_string  += '&country='     + country_text_box.value;
+		data_string  += '&need='        + need_text_box.value;
+
+		request.open( "POST", php_file, true ); // set the request
+
+		// adds  a header to tell the PHP script to recognize the data as is sent via POST
+		request.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+		request.send( data_string );// calls the send() method with datas as parameter
+
+		// Check request status
+		// If the response is received completely, will be transferred to the HTML tag with tagID
+		request.onreadystatechange = function( ) 
+		{
+			if ( request.readyState == 4 )
+			{
+				
+				data_response = request.responseText;
+				
+				var update_dialog_cont = make_div( "update_dialog_cont", 10, document.body );
+				size_div( update_dialog_cont, "300", "200" );
+				place_div( update_dialog_cont, window.innerWidth/2 - 150, window.innerHeight/2 - 150 );
+				apply_class( update_dialog_cont, "signup_dialog_cont" ); 
+				update_dialog_cont.innerHTML = "" + data_response;
+				
+				var grey_out = make_div( "grey_out", 8, document.body );
+				size_div( grey_out, window.innerWidth, get_body_height() );
+				place_div( grey_out, 0, 0);
+				apply_class( grey_out, "grey_out" ); 
+				grey_out.innerHTML = "&nbsp;";
+				
+				window.setTimeout( function(){
+					
+					var update_dialog_cont = get_obj( "update_dialog_cont" );
+	
+					while ( update_dialog_cont.firstChild ) 
+					{
+						update_dialog_cont.removeChild( update_dialog_cont.firstChild );
+					}
+					
+					document.body.removeChild( update_dialog_cont );
+					
+					var grey_out = get_obj( "grey_out" );
+					
+					document.body.removeChild( grey_out );
+					
+				}, 2000 );
+			}
+			else
+			{
+				// error
+			}
+		}
+	}
+	
+	ajaxrequest( 'assets/scripts/update_user.php', 'null' );	
 }
 
 // END LOGIN 

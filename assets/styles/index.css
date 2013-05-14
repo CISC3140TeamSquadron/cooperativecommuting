@@ -402,6 +402,30 @@ span.login_text:hover
 	cursor: pointer;
 }
 
+.update_text
+{
+	padding-left: 30px;
+	font-size: 1.8em;
+	color: #fff;
+	cursor: pointer;
+	-webkit-transition: padding-left .2s linear;
+	-moz-transition: padding-left .2s linear;
+	-o-transition: padding-left .2s linear;
+	transition: padding-left .2s linear;
+}
+
+span.update_text:hover
+{
+	padding-left: 50px;	
+}
+
+.update_arrow_icon
+{
+	width: 26px;
+	height: 26px;
+	cursor: pointer;
+}
+
 .signup_dialog_cont
 {
 	background-color: #f3d859;
@@ -448,6 +472,13 @@ span.login_text:hover
 }
 
 .pass_word_box
+{
+	margin-left: 5px;
+	border: 0px solid #eee;
+	background: #eee;
+}
+
+.account_text_box
 {
 	margin-left: 5px;
 	border: 0px solid #eee;

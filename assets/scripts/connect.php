@@ -66,8 +66,7 @@
 			}
 			else
 			{
-				echo mysql_error();
-				return false;
+				return mysql_error( );
 			}
 		}
 		

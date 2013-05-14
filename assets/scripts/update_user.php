@@ -12,10 +12,8 @@
 	include( "connect.php" );
 	
 	$user_name = "";
-	$pass_word = "";
 	$first_name = "";
 	$last_name = "";
-	$email = "";
 	$driver = "";
 	$address = "";
 	$address2 = "";
@@ -24,17 +22,10 @@
 	$zip = "";
 	$country = "";
 	$need = "";
-//	$last_accessed = date( "Y-m-d" );
-	
-	
+
 	if ( isset( $_POST[ 'user_name' ] ) )
 	{ 		
 		$user_name = mysql_real_escape_string( $_POST[ 'user_name'  ] );
-	}
-	
-	if ( isset( $_POST[ 'pass_word' ] ) )
-	{
-		$pass_word = mysql_real_escape_string( $_POST[ 'pass_word'  ] );
 	}
 	
 	if ( isset( $_POST[ 'first_name' ] ) )
@@ -45,11 +36,6 @@
 	if ( isset( $_POST[ 'last_name' ] ) )
 	{
 		$last_name = mysql_real_escape_string( $_POST[ 'last_name'  ] );	
-	}
-	
-	if ( isset( $_POST[ 'email' ] ) )
-	{
-		$email = $_POST[ 'email'  ];	
 	}
 	
 	if ( isset( $_POST[ 'driver' ] ) )
@@ -92,32 +78,35 @@
 		$need = $_POST[ 'need'  ];	
 	}
 	
-	if ( $user_name != "" || $pass_word != "" || $first_name != "" || $last_name != "" || $email != "" || $driver != "" || $address != "" || $address2 != "" || $city != "" || $state != "" || $zip != "" || $country != "" || $need != ""  )
+	if ( $user_name != "" || $first_name != "" || $last_name != "" || $driver != "" || $address != "" || $address2 != "" || $city != "" || $state != "" || $zip != "" || $country != "" || $need != ""  )
 	{
 	
 		$query_string = "SELECT email FROM cc_users WHERE email = '$user_name'";	
 		
 		$result = $db->select_record( $query_string );
 		
-		if ( $result == false )
+		if ( $result != false )
 		{ 
-			$query_string = "INSERT INTO cc_users ( email, pword, first_name, last_name, driver, home_street, home_apt, home_city, home_state, home_zip, home_country, commuting_for) VALUES 
-			( '$user_name', '$pass_word', '$first_name', '$last_name', '$driver', '$address', '$address2', '$city', '$state', '$zip', '$country', '$need' )";
+			$query_string = "UPDATE cc_users SET first_name='$first_name', last_name='$last_name', driver='$driver', home_street='$address', home_apt='$address2', home_city='$city', home_state='$state', home_zip='$zip', home_country='$country', commuting_for='$need' WHERE 
+			email='$user_name'";
 		
-			$result = $db->insert_record( $query_string );
+			$result = $db->update_record( $query_string );
 		
 			if ( $result )
 			{
-				echo "Welcome!;" . $user_name . ";" . $first_name . ";" . $last_name . ";" . $driver . ";" . $address . ";" . $address2 . ";" . $city . ";" . $state . ";" . $zip . ";" . $country . ";" . $need . ";";
+				echo "Updated!";
+			}
+			else
+			{
+				echo $result;
 			}
 		}
 		else
 		{
-			echo "Username already taken.";
+			echo "User does not exist: " . $user_name;
 		}
 		
-		$db->close( );
-		
+		$db->close( );		
 	}
 	else
 	{

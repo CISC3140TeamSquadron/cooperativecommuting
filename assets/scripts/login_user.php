@@ -48,7 +48,6 @@
 				$zip			= $r['home_zip'];
 				$country		= $r['home_country'];
 				$commuting_for	= $r['commuting_for'];
-				$last_accessed  = $r['last_accessed'];
 			}
 		
 		//	$query_string = "UPDATE " . cc_users . " SET lastaccessed = '" . $last_accessed ."' WHERE email = '" . $user_name ."' AND pword ='" . $pass_word . "'";
@@ -57,7 +56,7 @@
 		
 			if ( $result )
 			{
-					echo "Welcome back!;" . $user_name . ";" . $first_name . ";" . $last_name . ";" . $driver . ";" . $address . ";" . $address2 . ";" . $city . ";" . $state . ";" . $zip . ";" . $country . ";" . $commuting_for. ";" .$last_accessed .  ";";
+					echo "Welcome back!;" . $user_name . ";" . $first_name . ";" . $last_name . ";" . $driver . ";" . $address . ";" . $address2 . ";" . $city . ";" . $state . ";" . $zip . ";" . $country . ";" . $commuting_for . ";";
 			}
 		
 		}
